@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     //public static GameManager instance = null;
     private BoardManager boardScript;
-    public float turnDelay = 0.1f;
+    private float turnDelay = 0.5f;
+    private float unitDelay = 0.2f;
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public bool playerMoving = false;
     [HideInInspector] public bool enemiesMoving = false;
@@ -58,7 +59,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(enemies[i].moveTime);
+            //yield return new WaitForSeconds(enemies[i].moveTime);
+            yield return new WaitForSeconds(enemies[i].moveTime + unitDelay);
         }
         playersTurn = true;
         enemiesMoving = false;

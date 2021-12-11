@@ -3,11 +3,12 @@ using System.Collections;
 
 public abstract class Character : MonoBehaviour
 {
-    public float moveTime = 0.1f;
+    public float moveTime = 1.0f;
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;
     public bool isBlokcing = false;
+    private float moveDelay = 0.5f;
 
     protected virtual void Start()
     {
@@ -34,6 +35,7 @@ public abstract class Character : MonoBehaviour
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
+        yield return moveDelay;
     }
 
     public void LoseHP(int damage)
