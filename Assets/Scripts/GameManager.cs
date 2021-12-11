@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
     {
         boardScript = GetComponent<BoardManager>();
         text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
-
         InitGame();
     }
 
@@ -54,22 +54,26 @@ public class GameManager : MonoBehaviour
         enemiesMoving = true;
         yield return new WaitForSeconds(turnDelay);
 
-        if (enemies.Count == 0)
-        {
-            yield return new WaitForSeconds(turnDelay);
-        }
-
+        int disabledCount = 0;
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i].isActiveAndEnabled) {
+            if (enemies[i].isActiveAndEnabled)
+            {
                 yield return StartCoroutine(enemies[i].MoveEnemy());
             }
-            
-            //Debug.Log("Enemy move");
-            //yield return new WaitForSeconds(enemies[i].moveTime);
-            //Debug.Log("Next Enemy move");
-
+            else
+            {
+                disabledCount += 1;
+            }
         }
+
+        if (disabledCount == enemies.Count)
+        {
+            text.text = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            yield return new WaitForSeconds(5.0f);
+            SceneManager.LoadScene(1);
+        }
+
         playersTurn = true;
         enemiesMoving = false;
         StepTurn();
@@ -77,9 +81,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (playersTurn || playerMoving || enemiesMoving)
+        if (playersTurn || playerMoving)
         {
             SetText();
+            return;
+        }
+        else if (enemiesMoving)
+        {
             return;
         }
         StartCoroutine(MoveEnemies());

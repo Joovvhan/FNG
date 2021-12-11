@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5166184914022081840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5166184914022081847}
+  - component: {fileID: 5166184914022081846}
+  - component: {fileID: 5166184914022081841}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5166184914022081847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166184914022081840}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5166184914022081846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166184914022081840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e13172e7c06485b8c635561c89e310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersTurn: 1
+  playerMoving: 0
+  enemiesMoving: 0
+  enemies: []
+--- !u!114 &5166184914022081841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166184914022081840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6327479e51856449cbc735e2a9879fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 6808334495919444679, guid: c9a20d6fddd304da285bce9c3de54b68, type: 3}
+  tree: {fileID: 8381653812564851956, guid: 94de85850187749058f8bdf76760e821, type: 3}
+  weakTree: {fileID: 1829514183959589095, guid: 852e3aeadce564b14888ddff91597aa4, type: 3}
+  playerPrefab: {fileID: 4727672532300170324, guid: 9e7484a714a2440bca96aaa919297f70, type: 3}
+  warriorPrefab: {fileID: 749621466693800095, guid: 63f454154dc6478439c56afa7c3229a0, type: 3}
+  archerPrefab: {fileID: 749621466693800095, guid: fffa2add2f7bfa14089bd86614bbfbb5, type: 3}
+  grid: []
+  playerPosition: 0
+  treePositions: 
+  warriorPositions: 02000000
+  archerPositions: 07000000
+  columns: 10
