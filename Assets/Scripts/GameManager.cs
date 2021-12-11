@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public bool playerMoving = false;
     [HideInInspector] public bool enemiesMoving = false;
-    private List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
     private UnityEngine.UI.Text text;
     private Player player;
     private int chanceTurn = 0;

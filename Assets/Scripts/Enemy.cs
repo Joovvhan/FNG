@@ -10,22 +10,69 @@ public class Enemy : Character
     private bool skipMove;
     private GameManager gameManager;
     private BoardManager boardManager;
+    private int turnCount = 0;
 
     protected override void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        boardManager = gameManager.GetComponent<BoardManager>();
         gameManager.AddEnemyToList(this);
+
+        boardManager = gameManager.GetComponent<BoardManager>();
+        boardManager.AddEnemyToGrid((int)transform.position.x, this);
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
         hp = 2;
+        isBlokcing = true;
     }
 
     public void MoveEnemy()
     {
-        int xDir = 0;
-        xDir = target.position.x > transform.position.x ? 1 : -1;
-        //Debug.Log("Enemy do something");
+        if (turnCount % 2 == 0)
+        {
+            TryMoveForward();
+        }
+        else
+        {
+            TryMoveBackward();
+        }
+        turnCount += 1;
+    }
+
+    private bool TryMoveForward()
+    {
+        int dir = -1;
+        int target_x = (int)transform.position.x + dir;
+        if (boardManager.ApproveMovement(target_x))
+        {
+            Move(dir);
+            boardManager.SetMovementGrid((int)transform.position.x, target_x);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryMoveBackward()
+    {
+        int dir = 1;
+        int target_x = (int)transform.position.x + dir;
+        if (boardManager.ApproveMovement(target_x))
+        {
+            Move(dir);
+            boardManager.SetMovementGrid((int)transform.position.x, target_x);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TryAttack()
+    {
+        List<int> attackPositions = new List<int>() { -1, 99, -1 };
+        boardManager.SetDamage(attackPositions, 1);
+        gameManager.playersTurn = false;
+        gameManager.playerMoving = false;
+        return true;
     }
 
     //protected override void AttemptMove<T>(int xDir, int yDir)

@@ -10,8 +10,9 @@ public class BoardManager : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     private Transform boardHolder;
-    private List<int> gridPositions = new List<int>();
-    private List<Character> grid = new List<Character>();
+    //private List<int> gridPositions = new List<int>();
+    [SerializeField] private List<Character> grid = new List<Character>();
+
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
     public List<int> enemyPositions = new List<int>();
@@ -21,12 +22,13 @@ public class BoardManager : MonoBehaviour
 
     void InitialiseList()
     {
-        gridPositions.Clear();
+        //gridPositions.Clear();
         grid.Clear();
         for (int x = 0; x < columns; x++)
         {
-            gridPositions.Add(x);
-            grid.Add(new Empty());
+            //gridPositions.Add(x);
+            //grid.Add(new Empty());
+            grid.Add(null);
         }
 
     }
@@ -58,15 +60,16 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    void Start()
+    public bool AddEnemyToGrid(int idx, Enemy script)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (idx < 0 || idx > grid.Count){
+            return false;
+        }
+        else
+        {
+            grid[idx] = script;
+        }
+        return true;
     }
 
     public void SetupScene()
@@ -77,8 +80,6 @@ public class BoardManager : MonoBehaviour
 
     public bool ApproveMovement(int index)
     {
-        //Debug.Log(index);
-        //Debug.Log(grid.Count);
         if (index < 0 || index >= grid.Count)
         {
             return false;
@@ -91,6 +92,15 @@ public class BoardManager : MonoBehaviour
         {
             return false;
         }
+
+        return true;
+    }
+
+    public bool SetMovementGrid(int prev, int next)
+    {
+        var unit = grid[prev];
+        grid[prev] = grid[next];
+        grid[next] = unit;
 
         return true;
     }
@@ -114,5 +124,16 @@ public class BoardManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }
