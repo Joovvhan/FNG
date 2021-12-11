@@ -37,13 +37,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public void LoseHP(int damage)
-    {   
-        hp -= damage;
-        if (hp <= 0)
-            gameObject.SetActive(false);
-        //Debug.Log("Lost Health");
-    }
+    public abstract void LoseHP(int damage);
 
     public float GetMoveTime()
     {

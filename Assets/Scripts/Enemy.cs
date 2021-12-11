@@ -77,7 +77,7 @@ public class Enemy : Character
 //    return false;
 //}
 
-private bool TryMoveBackward()
+    private bool TryMoveBackward()
     {
         int dir = 1;
         int target_x = (int)transform.position.x + dir;
@@ -109,6 +109,18 @@ private bool TryMoveBackward()
     {
         Debug.Log(done);
         return done;
+    }
+
+    public override void LoseHP(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+            boardManager.RemoveEnemyFromGrid((int)transform.position.x);
+        }
+
+        //Debug.Log("Lost Health");
     }
 
 }

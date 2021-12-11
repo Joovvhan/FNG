@@ -94,10 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c483d3e86eb54e2c97cf69db394071b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.2
   hp: 3
   isBlokcing: 0
   wallDamage: 1
+  sprite: {fileID: 5004253063894888856}
 --- !u!95 &3878913710998844320
 Animator:
   serializedVersion: 3

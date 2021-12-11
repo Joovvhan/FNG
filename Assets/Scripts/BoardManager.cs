@@ -72,6 +72,19 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
+    public bool RemoveEnemyFromGrid(int idx)
+    {
+        if (idx < 0 || idx > grid.Count)
+        {
+            return false;
+        }
+        else
+        {
+            grid[idx] = null;
+        }
+        return true;
+    }
+
     public void SetupScene()
     {
         InitialiseList();
