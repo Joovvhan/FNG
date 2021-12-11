@@ -34,7 +34,7 @@ public class Enemy : Character
         }
         else
         {
-            yield return StartCoroutine(MoveAndMark(1));
+            yield return StartCoroutine(MoveAndMark(+1));
         }
         turnCount += 1;
         done = true;
@@ -47,7 +47,6 @@ public class Enemy : Character
         {
             return true;
         }
-
         return false;
     }
 
@@ -55,9 +54,10 @@ public class Enemy : Character
     {
         if (CheckMove(xDir))
         {
-            int target_x = (int)transform.position.x + xDir;
+            int old_x = (int)transform.position.x;
+            int target_x = old_x + xDir;
             yield return StartCoroutine(Move(xDir));
-            boardManager.SetMovementGrid((int)transform.position.x, target_x);
+            boardManager.SetMovementGrid(old_x, target_x);
         }
     }
         

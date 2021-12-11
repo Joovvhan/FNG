@@ -521,9 +521,10 @@ MonoBehaviour:
   weakTree: {fileID: 1829514183959589095, guid: 852e3aeadce564b14888ddff91597aa4, type: 3}
   player: {fileID: 4727672532300170324, guid: 9e7484a714a2440bca96aaa919297f70, type: 3}
   enemy: {fileID: 749621466693800095, guid: 6804e81daf9154b0992e6f6f3e2d6667, type: 3}
+  grid: []
   playerPosition: 0
   treePositions: 03000000
-  enemyPositions: 0400000005000000
+  enemyPositions: 040000000500000007000000
   columns: 10
 --- !u!114 &842132116
 MonoBehaviour:
@@ -537,10 +538,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e13172e7c06485b8c635561c89e310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnDelay: 0.1
   playersTurn: 1
   playerMoving: 0
   enemiesMoving: 0
+  enemies: []
 --- !u!4 &842132117
 Transform:
   m_ObjectHideFlags: 0
