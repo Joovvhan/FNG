@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class MovingObject : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     public float moveTime = 0.1f;
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;
+    public bool isBlokcing = false;
 
     protected virtual void Start()
     {
@@ -36,10 +37,10 @@ public abstract class MovingObject : MonoBehaviour
     }
 
     public void LoseHP(int damage)
-    {
+    {   
         hp -= damage;
         if (hp <= 0)
             gameObject.SetActive(false);
-        Debug.Log("Lost Health");
+        //Debug.Log("Lost Health");
     }
 }

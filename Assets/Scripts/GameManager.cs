@@ -8,19 +8,18 @@ public class GameManager : MonoBehaviour
     private BoardManager boardScript;
     public float turnDelay = 0.1f;
     [HideInInspector] public bool playersTurn = true;
+    [HideInInspector] public bool playerMoving = false;
     [HideInInspector] public bool enemiesMoving = false;
     private List<Enemy> enemies = new List<Enemy>();
+    private UnityEngine.UI.Text text;
+    private Player player;
+    private int chanceTurn = 0;
 
     void Awake()
     {
-        //if (instance == null)
-        //    instance = this;
-        //else if (instance != this)
-        //    Destroy(gameObject);
-
-        //DontDestroyOnLoad(gameObject);
-
         boardScript = GetComponent<BoardManager>();
+        text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
+
         InitGame();
     }
 
@@ -41,6 +40,11 @@ public class GameManager : MonoBehaviour
         enemies.Add(script);
     }
 
+    public void SetPlayer(Player script)
+    {
+        player = script;
+    }
+
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
@@ -58,14 +62,43 @@ public class GameManager : MonoBehaviour
         }
         playersTurn = true;
         enemiesMoving = false;
+        StepTurn();
     }
 
     void Update()
     {
-        if (playersTurn || enemiesMoving)
+        if (playersTurn || playerMoving || enemiesMoving)
+        {
+            SetText();
             return;
+        }
         StartCoroutine(MoveEnemies());
     }
 
+    void SetText()
+    {
+        if (playerMoving)
+        {
+            text.text = "Player Moving" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+        }
+        else if (playersTurn)
+        {
+            text.text = "Player's Turn" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+        }
+        else if (enemiesMoving)
+        {
+            text.text = "Enemy Moving" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+        }
+    }
+
+    public int GetChanceTurn()
+    {
+        return chanceTurn;
+    }
+
+    public void StepTurn()
+    {
+        chanceTurn = (chanceTurn + 1) % 3;
+    }
 
 }

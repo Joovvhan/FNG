@@ -10,56 +10,54 @@ public class BoardManager : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     private Transform boardHolder;
-    private List<Vector3> gridPositions = new List<Vector3>();
-    public List<Vector3> treePositions = new List<Vector3>();
-    public List<Vector3> enemyPositions = new List<Vector3>();
+    private List<int> gridPositions = new List<int>();
+    private List<Character> grid = new List<Character>();
+    public int playerPosition = 0;
+    public List<int> treePositions = new List<int>();
+    public List<int> enemyPositions = new List<int>();
 
     public int columns = 8;
-    public int rows = 8;
+    //public int rows = 8;
 
     void InitialiseList()
     {
         gridPositions.Clear();
-
-        for (int x = 1; x < columns - 1; x++)
+        grid.Clear();
+        for (int x = 0; x < columns; x++)
         {
-            for (int y = 1; y < rows - 1; y++)
-            {
-                gridPositions.Add(new Vector3(x, y, 0f));
-            }
+            gridPositions.Add(x);
+            grid.Add(new Empty());
         }
+
     }
 
     void BoardSetup()
     {
         boardHolder = new GameObject("Board").transform;
 
-        for (int x = -1; x < columns + 1; x++)
+        for (int x = 0; x < columns; x++)
         {
-            for (int y = -1; y < rows + 1; y++)
-            {
-                GameObject instance = Instantiate(tile, new Vector3(x, y, 0f), Quaternion.identity);
-                instance.transform.SetParent(boardHolder);
-            }
+            GameObject instance = Instantiate(tile, new Vector3(x, 0, 0f), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
         }
 
-        for (int x = -1; x < columns + 1; x++)
-        {
-            for (int y = -1; y < rows + 1; y++)
-            {
-                if (x == -1 || x == columns || y == -1 || y == rows)
-                {
-                    GameObject instance = Instantiate(tree, new Vector3(x, y, 0f), Quaternion.identity);
-                    instance.transform.SetParent(boardHolder);
-                }
-            }
-        }
-
-        GameObject instancePlayer = Instantiate(player, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        GameObject instancePlayer = Instantiate(player, new Vector3(playerPosition, 0f, 0f), Quaternion.identity);
         instancePlayer.transform.SetParent(boardHolder);
+
+        foreach (int v in treePositions)
+        {
+            GameObject instance = Instantiate(weakTree, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
+        foreach (int v in enemyPositions)
+        {
+            GameObject instance = Instantiate(enemy, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
     }
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -73,28 +71,27 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene()
     {
-        //treePositions.Add(new Vector3(1f, 1f, 0f));
-        //treePositions.Add(new Vector3(2f, 1f, 0f));
-        //treePositions.Add(new Vector3(3f, 1f, 0f));
-
-        //enemyPositions.Add(new Vector3(3f, 3f, 0f));
-        //enemyPositions.Add(new Vector3(3f, 5f, 0f));
-        //enemyPositions.Add(new Vector3(5f, 3f, 0f));
-
-        foreach (Vector3 v in treePositions)
-        {
-            GameObject instance = Instantiate(weakTree, v, Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
-
-        foreach (Vector3 v in enemyPositions)
-        {
-            GameObject instance = Instantiate(enemy, v, Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
-        BoardSetup();
         InitialiseList();
+        BoardSetup();
+    }
+
+    public bool ApproveMovement(int index)
+    {
+        //Debug.Log(index);
+        //Debug.Log(grid.Count);
+        if (index < 0 || index >= grid.Count)
+        {
+            return false;
+        }
+        else if (grid[index] == null)
+        {
+            return true;
+        }
+        else if(grid[index].isBlokcing)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

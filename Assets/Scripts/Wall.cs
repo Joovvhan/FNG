@@ -23,11 +23,5 @@ public class Wall : MonoBehaviour
     //        gameObject.SetActive(false);
     //}
 
-    public void LoseHP(int damage)
-    {
-        hp -= damage;
-        if (hp <= 0)
-            gameObject.SetActive(false);
-        Debug.Log("Lost Health");
-    }
+
 }
