@@ -106,7 +106,6 @@ public class Player : Character
     private IEnumerator TryBackStep()
     {
         int dir = -1 * forward;
-        gameManager.playerMoving = true;
         int target_x = (int)transform.position.x + dir;
         Debug.Log("TryBackStep" + " " + dir.ToString() + " " + target_x.ToString());
         if (boardManager.ApproveMovement(target_x))
