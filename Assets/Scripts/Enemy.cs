@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Enemy : Character
 {
-    public int playerDamage = 1;
     //public int hp = 2;
     private GameManager gameManager;
     private BoardManager boardManager;
@@ -12,6 +11,7 @@ public class Enemy : Character
     private int turnCount = 0;
     //private bool done = false;
     private int forward = -1;
+    private int atk = 1;
 
     protected override void Start()
     {
@@ -42,19 +42,25 @@ public class Enemy : Character
     public IEnumerator MoveEnemy()
     {
         SetDirection();
-        //done = false;
-        if (turnCount % 2 == 1)
+
+        if (turnCount % 3 == 0)
+        {
+            yield return StartCoroutine(BasicAttack());
+        }
+        else if (turnCount % 3 == 1)
+        {
             forward *= -1;
-        yield return StartCoroutine(MoveAndMark(forward));
-        //{
-        //    
-        //}
-        //else
-        //{
-        //    yield return StartCoroutine(MoveAndMark(+1));
-        //}
+            yield return StartCoroutine(MoveAndMark(forward));
+        }
+        else if (turnCount % 3 == 2)
+        {
+            forward *= 1;
+            yield return StartCoroutine(MoveAndMark(forward));
+        }
+
+
+
         turnCount += 1;
-        //done = true;
     }
 
     private bool CheckMove(int dir)
@@ -106,13 +112,13 @@ public class Enemy : Character
         return false;
     }
 
-    private bool TryAttack()
+    private IEnumerator BasicAttack()
     {
-        List<int> attackPositions = new List<int>() { -1, 99, -1 };
-        boardManager.SetDamage(attackPositions, 1);
-        gameManager.playersTurn = false;
-        gameManager.playerMoving = false;
-        return true;
+        List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
+        Debug.Log("Enemy Attacked");
+        yield return new WaitForSeconds(1.0f);
+        boardManager.SetPlayerDamage(attackPositions, atk);
+        Debug.Log("Enemey Attack Finished");
     }
 
     //public void SetDone(bool status)

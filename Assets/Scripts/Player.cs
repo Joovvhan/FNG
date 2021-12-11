@@ -20,6 +20,7 @@ public class Player : Character
         base.Start();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         boardManager = gameManager.GetComponent<BoardManager>();
+        boardManager.SetPlayer(this);
         gameManager.SetPlayer(this);
     }
 
@@ -36,6 +37,7 @@ public class Player : Character
         int command = GetCommand();
         if (command != 0)
         {
+            def = 0;
             if (command == 1 || command == 2)
             {
                 StartCoroutine(TryMove(command));
@@ -84,7 +86,7 @@ public class Player : Character
 
     private IEnumerator BasicAttack()
     {
-        List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + 1 };
+        List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
         gameManager.playerMoving = true;
         Debug.Log("Player Attack");
         yield return new WaitForSeconds(1.0f);
@@ -182,7 +184,7 @@ public class Player : Character
 
     public override void LoseHP(int damage)
     {
-        int actual_damage = (int)Mathf.Clamp((def - damage), 0, 99);
+        int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
         if (hp <= 0)
             gameObject.SetActive(false);

@@ -7,7 +7,7 @@ public class BoardManager : MonoBehaviour
     public GameObject tile;
     public GameObject tree;
     public GameObject weakTree;
-    public GameObject player;
+    public GameObject playerPrefab;
     public GameObject enemy;
     private Transform boardHolder;
     //private List<int> gridPositions = new List<int>();
@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
     public List<int> enemyPositions = new List<int>();
+    private Player player;
 
     public int columns = 8;
     //public int rows = 8;
@@ -43,7 +44,7 @@ public class BoardManager : MonoBehaviour
             instance.transform.SetParent(boardHolder);
         }
 
-        GameObject instancePlayer = Instantiate(player, new Vector3(playerPosition, 0f, 0f), Quaternion.identity);
+        GameObject instancePlayer = Instantiate(playerPrefab, new Vector3(playerPosition, 0f, 0f), Quaternion.identity);
         instancePlayer.transform.SetParent(boardHolder);
 
         foreach (int v in treePositions)
@@ -138,6 +139,24 @@ public class BoardManager : MonoBehaviour
 
         return true;
     }
+
+    public bool SetPlayerDamage(List<int> indices, int damage)
+    {
+        foreach (int idx in indices)
+        {
+            if (idx == (int)player.transform.position.x) {
+                player.LoseHP(damage);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void SetPlayer(Player p)
+    {
+        player = p;
+    }
+
 
     void Start()
     {
