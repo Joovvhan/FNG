@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5166184914022081840
+--- !u!1 &2524298838616017770
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5166184914022081847}
-  - component: {fileID: 5166184914022081846}
-  - component: {fileID: 5166184914022081841}
+  - component: {fileID: 2524298838616017773}
+  - component: {fileID: 2524298838616017772}
+  - component: {fileID: 2524298838616017771}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5166184914022081847
+--- !u!4 &2524298838616017773
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166184914022081840}
+  m_GameObject: {fileID: 2524298838616017770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5166184914022081846
+--- !u!114 &2524298838616017772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166184914022081840}
+  m_GameObject: {fileID: 2524298838616017770}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0e13172e7c06485b8c635561c89e310, type: 3}
@@ -48,13 +48,13 @@ MonoBehaviour:
   playerMoving: 0
   enemiesMoving: 0
   enemies: []
---- !u!114 &5166184914022081841
+--- !u!114 &2524298838616017771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5166184914022081840}
+  m_GameObject: {fileID: 2524298838616017770}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6327479e51856449cbc735e2a9879fab, type: 3}
@@ -66,9 +66,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 4727672532300170324, guid: 9e7484a714a2440bca96aaa919297f70, type: 3}
   warriorPrefab: {fileID: 749621466693800095, guid: 63f454154dc6478439c56afa7c3229a0, type: 3}
   archerPrefab: {fileID: 749621466693800095, guid: fffa2add2f7bfa14089bd86614bbfbb5, type: 3}
+  traversingPrefab: {fileID: 0}
   grid: []
   playerPosition: 0
   treePositions: 
   warriorPositions: 02000000
   archerPositions: 07000000
+  testPositions: 
   columns: 10

@@ -11,6 +11,9 @@ public class BoardManager : MonoBehaviour
     public GameObject warriorPrefab;
     public GameObject archerPrefab;
     private Transform boardHolder;
+
+    public GameObject testPrefab;
+
     //private List<int> gridPositions = new List<int>();
     [SerializeField] private List<Character> grid = new List<Character>();
 
@@ -18,6 +21,9 @@ public class BoardManager : MonoBehaviour
     public List<int> treePositions = new List<int>();
     public List<int> warriorPositions = new List<int>();
     public List<int> archerPositions = new List<int>();
+
+    public List<int> testPositions = new List<int>();
+
     private Player player;
 
     public int columns = 8;
@@ -64,6 +70,12 @@ public class BoardManager : MonoBehaviour
         foreach (int v in archerPositions)
         {
             GameObject instance = Instantiate(archerPrefab, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
+        foreach (int v in testPositions)
+        {
+            GameObject instance = Instantiate(testPrefab, new Vector3(v, 0, 0), Quaternion.identity);
             instance.transform.SetParent(boardHolder);
         }
 

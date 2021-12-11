@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class Enemy : Character
 {
     //public int hp = 2;
-    private GameManager gameManager;
-    private BoardManager boardManager;
-    private GameObject player;
-    private int turnCount = 0;
+    protected GameManager gameManager;
+    protected BoardManager boardManager;
+    protected GameObject player;
+    protected int turnCount = 0;
     //private bool done = false;
-    private int forward = -1;
-    private int atk = 1;
+    protected int forward = -1;
+    protected int atk = 1;
     Animator anim;
 
     protected override void Start()
@@ -28,7 +28,7 @@ public class Enemy : Character
         anim = GetComponent<Animator>();
     }
 
-    private void SetDirection()
+    protected void SetDirection()
     {
         if (player.transform.position.x <= transform.position.x)
         {
@@ -41,7 +41,7 @@ public class Enemy : Character
         transform.localScale = new Vector3(forward, 1, 1);
     }
 
-    public IEnumerator MoveEnemy()
+    public virtual IEnumerator MoveEnemy()
     {
         SetDirection();
 
@@ -95,7 +95,7 @@ public class Enemy : Character
         }
     }
 
-    private IEnumerator BasicAttack()
+    protected IEnumerator BasicAttack()
     {
         List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
         //Debug.Log("Enemy Attacked");
