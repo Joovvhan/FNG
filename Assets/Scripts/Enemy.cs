@@ -10,7 +10,8 @@ public class Enemy : Character
     private BoardManager boardManager;
     private GameObject player;
     private int turnCount = 0;
-    private bool done = false;
+    //private bool done = false;
+    private int forward = -1;
 
     protected override void Start()
     {
@@ -25,19 +26,35 @@ public class Enemy : Character
         base.Start();
     }
 
-    public IEnumerator MoveEnemy()
+    private void SetDirection()
     {
-        done = false;
-        if (turnCount % 2 == 0)
+        if (player.transform.position.x <= transform.position.x)
         {
-            yield return StartCoroutine(MoveAndMark(-1));
+            forward = -1;
         }
         else
         {
-            yield return StartCoroutine(MoveAndMark(+1));
+            forward = 1;
         }
+        transform.localScale = new Vector3(forward, 1, 1);
+    }
+
+    public IEnumerator MoveEnemy()
+    {
+        SetDirection();
+        //done = false;
+        if (turnCount % 2 == 1)
+            forward *= -1;
+        yield return StartCoroutine(MoveAndMark(forward));
+        //{
+        //    
+        //}
+        //else
+        //{
+        //    yield return StartCoroutine(MoveAndMark(+1));
+        //}
         turnCount += 1;
-        done = true;
+        //done = true;
     }
 
     private bool CheckMove(int dir)
@@ -60,8 +77,6 @@ public class Enemy : Character
             boardManager.SetMovementGrid(old_x, target_x);
         }
     }
-        
-        
 
 //private bool TryMoveForward()
 //{
@@ -100,16 +115,16 @@ public class Enemy : Character
         return true;
     }
 
-    public void SetDone(bool status)
-    {
-        done = status;
-    }
+    //public void SetDone(bool status)
+    //{
+    //    done = status;
+    //}
 
-    public bool isDone()
-    {
-        Debug.Log(done);
-        return done;
-    }
+    //public bool isDone()
+    //{
+    //    Debug.Log(done);
+    //    return done;
+    //}
 
     public override void LoseHP(int damage)
     {
