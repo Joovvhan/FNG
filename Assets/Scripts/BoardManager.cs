@@ -94,4 +94,25 @@ public class BoardManager : MonoBehaviour
 
         return true;
     }
+
+    public bool SetDamage(List<int> indices, int damage)
+    {
+        foreach (int index in indices)
+        {
+            if (index < 0 || index >= grid.Count)
+            {
+                
+            }
+            else if (grid[index] == null)
+            {
+                
+            }
+            else
+            {
+                grid[index].LoseHP(damage);
+            }
+        }
+
+        return true;
+    }
 }
