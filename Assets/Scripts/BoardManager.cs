@@ -127,7 +127,7 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
-    public bool SetDamage(List<int> indices, int damage)
+    public IEnumerator SetDamage(List<int> indices, int damage)
     {
         foreach (int index in indices)
         {
@@ -141,23 +141,20 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                grid[index].LoseHP(damage);
+                yield return StartCoroutine(grid[index].LoseHP(damage));
             }
         }
-
-        return true;
     }
 
-    public bool SetPlayerDamage(List<int> indices, int damage)
+    public IEnumerator SetPlayerDamage(List<int> indices, int damage)
     {
         foreach (int idx in indices)
         {
             if (idx == (int)player.transform.position.x) {
-                player.LoseHP(damage);
-                return true;
+                yield return StartCoroutine(player.LoseHP(damage));
+                yield break;
             }
         }
-        return false;
     }
 
     public void SetPlayer(Player p)

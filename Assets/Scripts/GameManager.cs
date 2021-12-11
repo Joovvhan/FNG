@@ -8,9 +8,6 @@ public class GameManager : MonoBehaviour
     //public static GameManager instance = null;
     private BoardManager boardScript;
     private float turnDelay = 0.5f;
-    private float unitDelay = 0.2f;
-
-    private float eps_t = 0.01f;
 
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public bool playerMoving = false;
@@ -19,6 +16,7 @@ public class GameManager : MonoBehaviour
     private UnityEngine.UI.Text text;
     private Player player;
     private int chanceTurn = 0;
+    private bool gameOver = false;
 
     void Awake()
     {
@@ -33,10 +31,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void GameOver()
+    public IEnumerator GameOver()
     {
         Debug.Log("Game Over");
-        enabled = false;
+        gameOver = true;
+        string msg = "Player's Lost!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+        yield return StartCoroutine(Reload(msg));
     }
 
     public void AddEnemyToList(Enemy script)
@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
         enemiesMoving = true;
         yield return new WaitForSeconds(turnDelay);
 
+        SetText();
+
         int disabledCount = 0;
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -69,9 +71,8 @@ public class GameManager : MonoBehaviour
 
         if (disabledCount == enemies.Count)
         {
-            text.text = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
-            yield return new WaitForSeconds(5.0f);
-            SceneManager.LoadScene(1);
+            string msg = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            yield return StartCoroutine(Reload(msg));
         }
 
         playersTurn = true;
@@ -81,16 +82,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (playersTurn || playerMoving)
+        if (!gameOver)
         {
-            SetText();
-            return;
+            if (playersTurn || playerMoving)
+            {
+                SetText();
+                return;
+            }
+            else if (enemiesMoving)
+            {
+                return;
+            }
+            StartCoroutine(MoveEnemies());
         }
-        else if (enemiesMoving)
-        {
-            return;
-        }
-        StartCoroutine(MoveEnemies());
     }
 
     void SetText()
@@ -119,4 +123,10 @@ public class GameManager : MonoBehaviour
         chanceTurn = (chanceTurn + 1) % 3;
     }
 
+    private IEnumerator Reload(string msg)
+    {
+        text.text = msg;
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(1);
+    }
 }

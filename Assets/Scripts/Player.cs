@@ -13,6 +13,7 @@ public class Player : Character
     private int def = 0;
     private int atk = 1;
     private int forward = 1;
+    Animator anim;
     //[SerializeField] private GameObject sprite;
 
     protected override void Start()
@@ -22,6 +23,7 @@ public class Player : Character
         boardManager = gameManager.GetComponent<BoardManager>();
         boardManager.SetPlayer(this);
         gameManager.SetPlayer(this);
+        anim = GetComponent<Animator>();
     }
 
     private void Awake()
@@ -56,8 +58,13 @@ public class Player : Character
 
             else if (command == 5)
             {
-                Debug.Log("Before BackStep Coroutine");
                 StartCoroutine(TryBackStep());
+            }
+
+            else if (command == 6)
+            {
+                Debug.Log("Skip!");
+                gameManager.playersTurn = false;
             }
         }
     }
@@ -77,7 +84,9 @@ public class Player : Character
         if (boardManager.ApproveMovement(target_x))
         {
             gameManager.playerMoving = true;
+            anim.SetBool("isRunning", true);
             yield return StartCoroutine(Move(dir));
+            anim.SetBool("isRunning", false);
             gameManager.playersTurn = false;
             gameManager.playerMoving = false;
         }
@@ -89,8 +98,10 @@ public class Player : Character
         List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
         gameManager.playerMoving = true;
         Debug.Log("Player Attack");
-        yield return new WaitForSeconds(1.0f);
-        boardManager.SetDamage(attackPositions, atk);
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(boardManager.SetDamage(attackPositions, atk));
+        anim.SetTrigger("Idle");
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
         Debug.Log("Player Attack Finished");
@@ -146,6 +157,10 @@ public class Player : Character
         {
             return 5;
         }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            return 6;
+        }
 
         return 0;
     }
@@ -182,13 +197,18 @@ public class Player : Character
         }
     }
 
-    public override void LoseHP(int damage)
+    public override IEnumerator LoseHP(int damage)
     {
         int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
-        if (hp <= 0)
-            gameObject.SetActive(false);
         Debug.Log("Player Lost Health");
+        if (hp <= 0)
+        {
+            anim.SetTrigger("Die");
+            StartCoroutine(gameManager.GameOver());
+            yield return new WaitForSeconds(1.0f);
+            gameObject.SetActive(false);
+        }
     }
 
 }

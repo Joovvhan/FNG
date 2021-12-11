@@ -12,6 +12,7 @@ public class Enemy : Character
     //private bool done = false;
     private int forward = -1;
     private int atk = 1;
+    Animator anim;
 
     protected override void Start()
     {
@@ -24,6 +25,7 @@ public class Enemy : Character
         hp = 2;
         isBlokcing = true;
         base.Start();
+        anim = GetComponent<Animator>();
     }
 
     private void SetDirection()
@@ -77,69 +79,38 @@ public class Enemy : Character
         {
             int old_x = (int)transform.position.x;
             int target_x = old_x + xDir;
+            anim.SetBool("isRunning", true);
             yield return StartCoroutine(Move(xDir));
+            anim.SetBool("isRunning", false);
             boardManager.SetMovementGrid(old_x, target_x);
         }
-    }
-
-//private bool TryMoveForward()
-//{
-//    int dir = -1;
-//    int target_x = (int)transform.position.x + dir;
-//    if (boardManager.ApproveMovement(target_x))
-//    {
-//        Move(dir);
-//        boardManager.SetMovementGrid((int)transform.position.x, target_x);
-//        return true;
-//    }
-
-//    return false;
-//}
-
-    private bool TryMoveBackward()
-    {
-        int dir = 1;
-        int target_x = (int)transform.position.x + dir;
-        if (boardManager.ApproveMovement(target_x))
-        {
-            Move(dir);
-            boardManager.SetMovementGrid((int)transform.position.x, target_x);
-            return true;
-        }
-
-        return false;
     }
 
     private IEnumerator BasicAttack()
     {
         List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
-        Debug.Log("Enemy Attacked");
-        yield return new WaitForSeconds(1.0f);
-        boardManager.SetPlayerDamage(attackPositions, atk);
-        Debug.Log("Enemey Attack Finished");
+        //Debug.Log("Enemy Attacked");
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+        anim.SetTrigger("Idle");
+        yield return StartCoroutine(boardManager.SetPlayerDamage(attackPositions, atk));
+        //Debug.Log("Enemey Attack Finished");
     }
 
-    //public void SetDone(bool status)
-    //{
-    //    done = status;
-    //}
-
-    //public bool isDone()
-    //{
-    //    Debug.Log(done);
-    //    return done;
-    //}
-
-    public override void LoseHP(int damage)
+    public override IEnumerator LoseHP(int damage)
     {
         hp -= damage;
         if (hp <= 0)
         {
+            anim.SetTrigger("Die");
+            yield return new WaitForSeconds(0.5f);
             gameObject.SetActive(false);
             boardManager.RemoveEnemyFromGrid((int)transform.position.x);
         }
 
         //Debug.Log("Lost Health");
     }
+
+
 
 }

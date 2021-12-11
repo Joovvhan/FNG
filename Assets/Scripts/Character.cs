@@ -37,7 +37,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public abstract void LoseHP(int damage);
+    public abstract IEnumerator LoseHP(int damage);
 
     public float GetMoveTime()
     {
