@@ -120,6 +120,17 @@ public class Enemy : Character
         //Debug.Log("Lost Health");
     }
 
+    protected IEnumerator PrepareAttack()
+    {
+        anim.SetTrigger("Draw");
+        yield return new WaitForSeconds(0.8f);
+    }
 
+    protected IEnumerator RangeAttack()
+    {
+        anim.SetTrigger("Launch");
+        yield return new WaitForSeconds(0.8f);
+        yield return StartCoroutine(boardManager.SetPlayerDamage(atk));
+    }
 
 }

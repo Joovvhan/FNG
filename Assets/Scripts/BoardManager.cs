@@ -179,6 +179,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public IEnumerator SetPlayerDamage(int damage)
+    {
+        yield return StartCoroutine(player.LoseHP(damage));
+    }
+
     public void SetPlayer(Player p)
     {
         player = p;
