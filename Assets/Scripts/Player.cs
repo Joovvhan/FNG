@@ -35,7 +35,7 @@ public class Player : Character
         {
             if (command == 1 || command == 2)
             {
-                TryMove(command);
+                StartCoroutine(TryMove(command));
             }
 
             else if (command == 3)
@@ -58,7 +58,7 @@ public class Player : Character
         }
     }
 
-    private bool TryMove(int command)
+    private IEnumerator TryMove(int command)
     {
         int dir = 1;
         if (command == 2) {
@@ -69,13 +69,11 @@ public class Player : Character
         if (boardManager.ApproveMovement(target_x))
         {
             gameManager.playerMoving = true;
-            Move(dir);
+            yield return StartCoroutine(Move(dir));
             gameManager.playersTurn = false;
             gameManager.playerMoving = false;
-            return true;
         }
 
-        return false;
     }
 
     private bool TryAttack()

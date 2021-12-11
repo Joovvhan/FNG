@@ -10,6 +10,7 @@ public class Enemy : Character
     private BoardManager boardManager;
     private GameObject player;
     private int turnCount = 0;
+    private bool done = false;
 
     protected override void Start()
     {
@@ -24,34 +25,59 @@ public class Enemy : Character
         base.Start();
     }
 
-    public void MoveEnemy()
+    public IEnumerator MoveEnemy()
     {
+        done = false;
         if (turnCount % 2 == 0)
         {
-            TryMoveForward();
+            yield return StartCoroutine(MoveAndMark(-1));
         }
         else
         {
-            TryMoveBackward();
+            yield return StartCoroutine(MoveAndMark(1));
         }
         turnCount += 1;
+        done = true;
     }
 
-    private bool TryMoveForward()
+    private bool CheckMove(int dir)
     {
-        int dir = -1;
         int target_x = (int)transform.position.x + dir;
         if (boardManager.ApproveMovement(target_x))
         {
-            Move(dir);
-            boardManager.SetMovementGrid((int)transform.position.x, target_x);
             return true;
         }
 
         return false;
     }
 
-    private bool TryMoveBackward()
+    protected IEnumerator MoveAndMark(int xDir)
+    {
+        if (CheckMove(xDir))
+        {
+            int target_x = (int)transform.position.x + xDir;
+            yield return StartCoroutine(Move(xDir));
+            boardManager.SetMovementGrid((int)transform.position.x, target_x);
+        }
+    }
+        
+        
+
+//private bool TryMoveForward()
+//{
+//    int dir = -1;
+//    int target_x = (int)transform.position.x + dir;
+//    if (boardManager.ApproveMovement(target_x))
+//    {
+//        Move(dir);
+//        boardManager.SetMovementGrid((int)transform.position.x, target_x);
+//        return true;
+//    }
+
+//    return false;
+//}
+
+private bool TryMoveBackward()
     {
         int dir = 1;
         int target_x = (int)transform.position.x + dir;
@@ -72,6 +98,17 @@ public class Enemy : Character
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
         return true;
+    }
+
+    public void SetDone(bool status)
+    {
+        done = status;
+    }
+
+    public bool isDone()
+    {
+        Debug.Log(done);
+        return done;
     }
 
 }
