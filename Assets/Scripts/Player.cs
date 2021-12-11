@@ -11,6 +11,9 @@ public class Player : Character
     private GameManager gameManager;
     private BoardManager boardManager;
     private int def = 0;
+    private int atk = 1;
+    private int forward = 1;
+    //[SerializeField] private GameObject sprite;
 
     protected override void Start()
     {
@@ -40,20 +43,19 @@ public class Player : Character
 
             else if (command == 3)
             {
-                TryAttack();
-                Debug.Log("Attack");
+                StartCoroutine(BasicAttack());
             }
 
             else if(command == 4)
             {
-                TryDefense();
+                StartCoroutine(TryDefense());
                 Debug.Log("Defense");
             }
 
             else if (command == 5)
             {
-                TryExtra();
-                Debug.Log("Extra");
+                Debug.Log("Before BackStep Coroutine");
+                StartCoroutine(TryBackStep());
             }
         }
     }
@@ -64,6 +66,10 @@ public class Player : Character
         if (command == 2) {
             dir = -1;
         }
+
+        forward = dir;
+        //sprite.transform.localScale = new Vector3(dir, 1, 1);
+        transform.localScale = new Vector3(dir, 1, 1);
 
         int target_x = (int)transform.position.x + dir;
         if (boardManager.ApproveMovement(target_x))
@@ -76,31 +82,40 @@ public class Player : Character
 
     }
 
-    private bool TryAttack()
+    private IEnumerator BasicAttack()
     {
+        List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + 1 };
         gameManager.playerMoving = true;
-        List<int> attackPositions = new List<int>(){-1, 99, -1};
-        boardManager.SetDamage(attackPositions, 1);
+        Debug.Log("Player Attack");
+        yield return new WaitForSeconds(1.0f);
+        boardManager.SetDamage(attackPositions, atk);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
-        return true;
+        Debug.Log("Player Attack Finished");
     }
 
-    private bool TryDefense()
+    private IEnumerator TryDefense()
     {
         gameManager.playerMoving = true;
         def = 3;
+        yield return new WaitForSeconds(1.0f);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
-        return true;
     }
 
-    private bool TryExtra()
+    private IEnumerator TryBackStep()
     {
+        int dir = -1 * forward;
         gameManager.playerMoving = true;
-        gameManager.playersTurn = false;
-        gameManager.playerMoving = false;
-        return true;
+        int target_x = (int)transform.position.x + dir;
+        Debug.Log("TryBackStep" + " " + dir.ToString() + " " + target_x.ToString());
+        if (boardManager.ApproveMovement(target_x))
+        {
+            gameManager.playerMoving = true;
+            yield return StartCoroutine(Move(dir));
+            gameManager.playersTurn = false;
+            gameManager.playerMoving = false;
+        }
     }
 
     private int GetCommand()
@@ -166,7 +181,7 @@ public class Player : Character
         }
     }
 
-    new public void LoseHP(int damage)
+    public override void LoseHP(int damage)
     {
         int actual_damage = (int)Mathf.Clamp((def - damage), 0, 99);
         hp -= actual_damage;

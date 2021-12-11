@@ -61,7 +61,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            yield return StartCoroutine(enemies[i].MoveEnemy());
+            if (enemies[i].isActiveAndEnabled) {
+                yield return StartCoroutine(enemies[i].MoveEnemy());
+            }
+            
             //Debug.Log("Enemy move");
             //yield return new WaitForSeconds(enemies[i].moveTime);
             //Debug.Log("Next Enemy move");
