@@ -3,12 +3,11 @@ using System.Collections;
 
 public abstract class Character : MonoBehaviour
 {
-    public float moveTime = 1.0f;
+    private float moveTime = 0.2f;
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;
     public bool isBlokcing = false;
-    private float moveDelay = 0.5f;
 
     protected virtual void Start()
     {
@@ -16,12 +15,13 @@ public abstract class Character : MonoBehaviour
         inverseMoveTime = 1f / moveTime;
     }
 
-    protected bool Move(int xDir)
+    //protected bool Move(int xDir)
+    protected IEnumerator Move(int xDir)
     {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, 0);
-        StartCoroutine(SmoothMovement(end));
-        return true;
+        yield return StartCoroutine(SmoothMovement(end));
+        //return true;
     }
 
     protected IEnumerator SmoothMovement(Vector3 end)
@@ -35,7 +35,6 @@ public abstract class Character : MonoBehaviour
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
-        yield return moveDelay;
     }
 
     public void LoseHP(int damage)
@@ -44,5 +43,10 @@ public abstract class Character : MonoBehaviour
         if (hp <= 0)
             gameObject.SetActive(false);
         //Debug.Log("Lost Health");
+    }
+
+    public float GetMoveTime()
+    {
+        return moveTime;
     }
 }

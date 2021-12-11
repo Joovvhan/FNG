@@ -2212,7 +2212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2340b7e86b24f84aedd8f039e8ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.2
   hp: 3
   isBlokcing: 0
   playerDamage: 1
