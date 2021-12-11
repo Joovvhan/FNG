@@ -520,11 +520,13 @@ MonoBehaviour:
   tree: {fileID: 8381653812564851956, guid: 94de85850187749058f8bdf76760e821, type: 3}
   weakTree: {fileID: 1829514183959589095, guid: 852e3aeadce564b14888ddff91597aa4, type: 3}
   playerPrefab: {fileID: 4727672532300170324, guid: 9e7484a714a2440bca96aaa919297f70, type: 3}
-  enemy: {fileID: 749621466693800095, guid: 63f454154dc6478439c56afa7c3229a0, type: 3}
+  warriorPrefab: {fileID: 749621466693800095, guid: 63f454154dc6478439c56afa7c3229a0, type: 3}
+  archerPrefab: {fileID: 749621466693800095, guid: fffa2add2f7bfa14089bd86614bbfbb5, type: 3}
   grid: []
   playerPosition: 0
   treePositions: 
-  enemyPositions: 040000000500000007000000
+  warriorPositions: 0200000004000000
+  archerPositions: 0500000007000000
   columns: 10
 --- !u!114 &842132116
 MonoBehaviour:

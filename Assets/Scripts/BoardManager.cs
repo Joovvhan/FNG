@@ -8,14 +8,16 @@ public class BoardManager : MonoBehaviour
     public GameObject tree;
     public GameObject weakTree;
     public GameObject playerPrefab;
-    public GameObject enemy;
+    public GameObject warriorPrefab;
+    public GameObject archerPrefab;
     private Transform boardHolder;
     //private List<int> gridPositions = new List<int>();
     [SerializeField] private List<Character> grid = new List<Character>();
 
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
-    public List<int> enemyPositions = new List<int>();
+    public List<int> warriorPositions = new List<int>();
+    public List<int> archerPositions = new List<int>();
     private Player player;
 
     public int columns = 8;
@@ -53,9 +55,15 @@ public class BoardManager : MonoBehaviour
             instance.transform.SetParent(boardHolder);
         }
 
-        foreach (int v in enemyPositions)
+        foreach (int v in warriorPositions)
         {
-            GameObject instance = Instantiate(enemy, new Vector3(v, 0, 0), Quaternion.identity);
+            GameObject instance = Instantiate(warriorPrefab, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
+        foreach (int v in archerPositions)
+        {
+            GameObject instance = Instantiate(archerPrefab, new Vector3(v, 0, 0), Quaternion.identity);
             instance.transform.SetParent(boardHolder);
         }
 

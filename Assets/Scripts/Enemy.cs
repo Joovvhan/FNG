@@ -58,8 +58,6 @@ public class Enemy : Character
             yield return StartCoroutine(MoveAndMark(forward));
         }
 
-
-
         turnCount += 1;
     }
 
