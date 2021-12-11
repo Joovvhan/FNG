@@ -2213,8 +2213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  isBlokcing: 0
-  playerDamage: 1
+  isBlocking: 1
 --- !u!95 &6000782953659028749
 Animator:
   serializedVersion: 3

@@ -23,7 +23,7 @@ public class Enemy : Character
         boardManager.AddEnemyToGrid((int)transform.position.x, this);
         player = GameObject.FindGameObjectWithTag("Player");
         hp = 2;
-        isBlokcing = true;
+        //isBlocking = true;
         base.Start();
         anim = GetComponent<Animator>();
     }
@@ -66,9 +66,18 @@ public class Enemy : Character
     private bool CheckMove(int dir)
     {
         int target_x = (int)transform.position.x + dir;
+
         if (boardManager.ApproveMovement(target_x))
         {
-            return true;
+            if (!isBlocking)
+            {
+                return true;
+            }
+            else if (boardManager.ApproveBlockerMovement(target_x))
+            {
+                return true;
+            }
+            
         }
         return false;
     }

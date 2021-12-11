@@ -110,10 +110,20 @@ public class BoardManager : MonoBehaviour
         {
             return true;
         }
-        else if(grid[index].isBlokcing)
+        else if(grid[index].isBlocking)
         {
             return false;
         }
+
+        return true;
+    }
+
+    public bool ApproveBlockerMovement(int index)
+    {
+        if ((int)player.transform.position.x == index)
+        {
+            return false;
+        } 
 
         return true;
     }

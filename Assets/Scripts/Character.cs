@@ -7,7 +7,7 @@ public abstract class Character : MonoBehaviour
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;
-    public bool isBlokcing = false;
+    [SerializeField] public bool isBlocking = false;
 
     protected virtual void Start()
     {

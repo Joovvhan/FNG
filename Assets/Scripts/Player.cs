@@ -97,14 +97,14 @@ public class Player : Character
     {
         List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
         gameManager.playerMoving = true;
-        Debug.Log("Player Attack");
+        //Debug.Log("Player Attack");
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(boardManager.SetDamage(attackPositions, atk));
         anim.SetTrigger("Idle");
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
-        Debug.Log("Player Attack Finished");
+        //Debug.Log("Player Attack Finished");
     }
 
     private IEnumerator TryDefense()
