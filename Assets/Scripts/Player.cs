@@ -19,6 +19,7 @@ public class Player : Character
 
     Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
+    [SerializeField] protected MMFeedbacks guardFeedback;
     //[SerializeField] private GameObject sprite;
     [SerializeField] private int chanceDistance = 3;
     [SerializeField] private int chanceDamage = 2;
@@ -261,7 +262,16 @@ public class Player : Character
         }
         int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
-        yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+
+        if (actual_damage > 0)
+        {
+            yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+        }
+        else
+        {
+            yield return StartCoroutine(guardFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+        }
+
         //Debug.Log("Player Lost Health");
         if (hp <= 0)
         {
