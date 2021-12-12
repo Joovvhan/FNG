@@ -87,20 +87,35 @@ public class Player : Character
 
         if (gameManager.IsChance())
         {
-            dir *= chanceDistance;
+            for (int i = chanceDistance; i > 0; i--)
+            {
+                int new_dir = i * dir;
+                int target_x = (int)transform.position.x + new_dir;
+                if (boardManager.ApproveMovementGhostMode(target_x))
+                {
+                    gameManager.playerMoving = true;
+                    anim.SetBool("isRunning", true);
+                    yield return StartCoroutine(Move(new_dir));
+                    anim.SetBool("isRunning", false);
+                    gameManager.playersTurn = false;
+                    gameManager.playerMoving = false;
+                    yield break;
+                }
+            }
         }
-
-        int target_x = (int)transform.position.x + dir;
-        if (boardManager.ApproveMovement(target_x))
+        else
         {
-            gameManager.playerMoving = true;
-            anim.SetBool("isRunning", true);
-            yield return StartCoroutine(Move(dir));
-            anim.SetBool("isRunning", false);
-            gameManager.playersTurn = false;
-            gameManager.playerMoving = false;
+            int target_x = (int)transform.position.x + dir;
+            if (boardManager.ApproveMovement(target_x))
+            {
+                gameManager.playerMoving = true;
+                anim.SetBool("isRunning", true);
+                yield return StartCoroutine(Move(dir));
+                anim.SetBool("isRunning", false);
+                gameManager.playersTurn = false;
+                gameManager.playerMoving = false;
+            }
         }
-
     }
 
     private IEnumerator BasicAttack()
