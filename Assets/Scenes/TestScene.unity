@@ -547,6 +547,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2723050096379984985, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -410
+      objectReference: {fileID: 0}
     - target: {fileID: 2723050097000067235, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
       propertyPath: m_Name
       value: Chance Text
@@ -650,6 +654,10 @@ PrefabInstance:
     - target: {fileID: 2723050097134925998, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723050097885879585, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -570
       objectReference: {fileID: 0}
     - target: {fileID: 3658931075341726954, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
       propertyPath: m_AnchorMax.y
