@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Character : MonoBehaviour
 {
-    protected float moveTime = 0.2f;
+    [SerializeField] protected float moveTime = 0.2f;
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;

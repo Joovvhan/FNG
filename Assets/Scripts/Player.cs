@@ -18,7 +18,6 @@ public class Player : Character
     //[SerializeField] private GameObject sprite;
     [SerializeField] private int chanceDistance = 3;
     [SerializeField] private int chanceDamage = 2;
-
     protected override void Start()
     {
         base.Start();
