@@ -9,12 +9,15 @@ public class Player : Character
 {
     private GameManager gameManager;
     private BoardManager boardManager;
-    private int def = 0;
+    //private int def = 0;
+    private bool defense = false;
     private int atk = 1;
     private int forward = 1;
     Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
     //[SerializeField] private GameObject sprite;
+    [SerializeField] private int chanceDistance = 3;
+    [SerializeField] private int chanceDamage = 2;
 
     protected override void Start()
     {
@@ -40,7 +43,8 @@ public class Player : Character
         int command = GetCommand();
         if (command != 0)
         {
-            def = 0;
+            //def = 0;
+            defense = false;
             if (command == 1 || command == 2) // ">", "<"
             {
                 StartCoroutine(TryMove(command));
@@ -82,6 +86,11 @@ public class Player : Character
         ////sprite.transform.localScale = new Vector3(dir, 1, 1);
         //transform.localScale = new Vector3(dir, 1, 1);
 
+        if (gameManager.IsChance())
+        {
+            dir *= chanceDistance;
+        }
+
         int target_x = (int)transform.position.x + dir;
         if (boardManager.ApproveMovement(target_x))
         {
@@ -102,7 +111,14 @@ public class Player : Character
         //Debug.Log("Player Attack");
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(boardManager.SetDamage(attackPositions, atk));
+
+        int dmg = atk;
+        if (gameManager.IsChance())
+        {
+            dmg *= chanceDistance;
+        }
+
+        yield return StartCoroutine(boardManager.SetDamage(attackPositions, dmg));
         anim.SetTrigger("Idle");
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
@@ -112,7 +128,8 @@ public class Player : Character
     private IEnumerator TryDefense()
     {
         gameManager.playerMoving = true;
-        def = 3;
+        //def = 3;
+        defense = true;
         yield return new WaitForSeconds(0.5f);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
@@ -191,6 +208,10 @@ public class Player : Character
 
     public override IEnumerator LoseHP(int damage)
     {
+        int def = 0;
+        if (defense) {
+            def = 3;
+        }
         int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
         yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
@@ -198,10 +219,15 @@ public class Player : Character
         if (hp <= 0)
         {
             anim.SetTrigger("Die");
-            StartCoroutine(gameManager.GameOver());
-            yield return new WaitForSeconds(1.0f);
-            gameObject.SetActive(false);
+            //StartCoroutine(gameManager.GameOver());
+            //yield return new WaitForSeconds(1.0f);
+            //gameObject.SetActive(false);
         }
+    }
+
+    public bool IsDefense()
+    {
+        return defense;
     }
 
 }

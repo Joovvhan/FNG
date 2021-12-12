@@ -43,4 +43,10 @@ public abstract class Character : MonoBehaviour
     {
         return moveTime;
     }
+
+    public bool IsDead()
+    {
+        return (hp <= 0);
+    }
+
 }

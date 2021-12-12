@@ -15,6 +15,7 @@ public class Enemy : Character
     protected int atk = 1;
     Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
+    protected bool isStunned;
 
     protected override void Start()
     {
@@ -28,6 +29,7 @@ public class Enemy : Character
         //isBlocking = true;
         base.Start();
         anim = GetComponent<Animator>();
+        isStunned = false;
     }
 
     protected void SetDirection()
@@ -45,23 +47,30 @@ public class Enemy : Character
 
     public virtual IEnumerator MoveEnemy()
     {
-        SetDirection();
+        if (isStunned)
+        {
+            yield return new WaitForSeconds(0.2f);
+;           isStunned = false;
+        }
+        else
+        {
+            SetDirection();
 
-        if (turnCount % 3 == 0)
-        {
-            yield return StartCoroutine(BasicAttack());
+            if (turnCount % 3 == 0)
+            {
+                yield return StartCoroutine(BasicAttack());
+            }
+            else if (turnCount % 3 == 1)
+            {
+                forward *= -1;
+                yield return StartCoroutine(MoveAndMark(forward));
+            }
+            else if (turnCount % 3 == 2)
+            {
+                forward *= 1;
+                yield return StartCoroutine(MoveAndMark(forward));
+            }
         }
-        else if (turnCount % 3 == 1)
-        {
-            forward *= -1;
-            yield return StartCoroutine(MoveAndMark(forward));
-        }
-        else if (turnCount % 3 == 2)
-        {
-            forward *= 1;
-            yield return StartCoroutine(MoveAndMark(forward));
-        }
-
         turnCount += 1;
     }
 
@@ -104,7 +113,7 @@ public class Enemy : Character
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(0.5f);
         anim.SetTrigger("Idle");
-        yield return StartCoroutine(boardManager.SetPlayerDamage(attackPositions, atk));
+        yield return StartCoroutine(boardManager.SetPlayerDamage(attackPositions, atk, this));
         //Debug.Log("Enemey Attack Finished");
     }
 
@@ -116,8 +125,8 @@ public class Enemy : Character
         {
             anim.SetTrigger("Die");
             yield return new WaitForSeconds(0.5f);
-            gameObject.SetActive(false);
-            boardManager.RemoveEnemyFromGrid((int)transform.position.x);
+            //gameObject.SetActive(false);
+            //boardManager.RemoveEnemyFromGrid((int)transform.position.x);
         }
 
         //Debug.Log("Lost Health");
@@ -133,7 +142,7 @@ public class Enemy : Character
     {
         anim.SetTrigger("Launch");
         yield return new WaitForSeconds(0.8f);
-        yield return StartCoroutine(boardManager.SetPlayerDamage(atk));
+        yield return StartCoroutine(boardManager.SetPlayerDamage(atk, this));
     }
 
 }
