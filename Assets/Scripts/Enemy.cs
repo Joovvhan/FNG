@@ -13,7 +13,7 @@ public class Enemy : Character
     //private bool done = false;
     protected int forward = -1;
     protected int atk = 1;
-    Animator anim;
+    protected Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
     protected bool isStunned;
 
@@ -160,4 +160,14 @@ public class Enemy : Character
         outline.SetActive(status);
     }
 
+    protected bool IsPlayerInRange()
+    {
+        int x = boardManager.GetPlayerPosition();
+
+        if (Mathf.Abs(x - transform.position.x) <= 1)
+        {
+            return true;
+        }
+        return false;
+    }
 }
