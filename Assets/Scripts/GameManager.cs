@@ -209,7 +209,10 @@ public class GameManager : MonoBehaviour
                 if (enemies[i].IsDead())
                 {
                     enemies[i].gameObject.SetActive(false);
-                    boardScript.RemoveEnemyFromGrid((int)enemies[i].transform.position.x);
+                    if (!(enemies[i] is FlyingEnemy))
+                    {
+                        boardScript.RemoveEnemyFromGrid((int)enemies[i].transform.position.x);
+                    }
                 }
             }
         }
