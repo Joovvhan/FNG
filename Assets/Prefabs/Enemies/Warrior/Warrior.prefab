@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 1563679600}
   - component: {fileID: 1563679602}
   - component: {fileID: 1563679601}
+  - component: {fileID: 8131154562945857560}
   m_Layer: 0
   m_Name: Damage Feedback
   m_TagString: Untagged
@@ -390,6 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Feedbacks:
   - {fileID: 1563679601}
+  - {fileID: 8131154562945857560}
   InitializationMode: 2
   SafeMode: 3
   Direction: 0
@@ -526,6 +528,153 @@ MonoBehaviour:
     m_RotationOrder: 4
   FlipX: 0
   FlipY: 0
+--- !u!114 &8131154562945857560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563679599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d958a52145b19904aa2a5bcb3849eafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 1
+  Label: Scale
+  Chance: 100
+  Timing:
+    TimescaleMode: 0
+    InitialDelay: 0
+    CooldownDuration: 0
+    ExcludeFromHoldingPauses: 0
+    InterruptsOnStop: 1
+    NumberOfRepeats: 0
+    RepeatForever: 0
+    DelayBetweenRepeats: 1
+    MMFeedbacksDirectionCondition: 0
+    PlayDirection: 0
+    ConstantIntensity: 0
+    UseIntensityInterval: 0
+    IntensityIntervalMin: 0
+    IntensityIntervalMax: 0
+    Sequence: {fileID: 0}
+    TrackID: 0
+    Quantized: 0
+    TargetBPM: 120
+  DebugActive: 0
+  Mode: 0
+  TimeScale: 0
+  AnimateScaleTarget: {fileID: 1813632466651362293}
+  AnimateScaleDuration: 0.2
+  RemapCurveZero: 1
+  RemapCurveOne: 1.1
+  Offset: 0
+  AnimateX: 1
+  AnimateScaleX:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.004386902
+      value: 0.9937515
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3308304
+      value: 0.11795807
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.98687744
+      value: 0.99256897
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AnimateY: 1
+  AnimateScaleY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AnimateZ: 0
+  AnimateScaleZ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AllowAdditivePlays: 0
+  DetermineScaleOnPlay: 0
+  DestinationScale: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!1 &1977322033
 GameObject:
   m_ObjectHideFlags: 0
