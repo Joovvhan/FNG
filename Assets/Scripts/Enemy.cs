@@ -56,19 +56,13 @@ public class Enemy : Character
         {
             SetDirection();
 
-            if (turnCount % 3 == 0)
+            if (turnCount % 2 == 0)
             {
                 yield return StartCoroutine(BasicAttack());
             }
-            else if (turnCount % 3 == 1)
+            else if (turnCount % 2 == 1)
             {
-                forward *= -1;
-                yield return StartCoroutine(MoveAndMark(forward));
-            }
-            else if (turnCount % 3 == 2)
-            {
-                forward *= 1;
-                yield return StartCoroutine(MoveAndMark(forward));
+                yield return StartCoroutine(DoNothing());
             }
         }
         turnCount += 1;
@@ -135,6 +129,10 @@ public class Enemy : Character
     protected IEnumerator PrepareAttack()
     {
         anim.SetTrigger("Draw");
+        yield return new WaitForSeconds(0.8f);
+    }
+    protected IEnumerator DoNothing()
+    {
         yield return new WaitForSeconds(0.8f);
     }
 

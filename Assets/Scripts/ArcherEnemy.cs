@@ -14,15 +14,19 @@ public class ArcherEnemy : Enemy
         else
         {
             SetDirection();
-            if (turnCount % 2 == 0)
+            if (turnCount % 3 == 0)
+            {
+                yield return StartCoroutine(DoNothing());
+            }
+            else if (turnCount % 3 == 1)
             {
                 yield return StartCoroutine(PrepareAttack());
             }
-            else if (turnCount % 2 == 1)
+            else if (turnCount % 3 == 2)
             {
                 yield return StartCoroutine(RangeAttack());
             }
+            turnCount += 1;
         }
-        turnCount += 1;
     }
 }
