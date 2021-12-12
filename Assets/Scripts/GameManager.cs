@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
+        yield return new WaitForSeconds(0.2f);
         player.SetOutline(false);
         yield return new WaitForSeconds(turnDelay);
 
@@ -72,7 +73,9 @@ public class GameManager : MonoBehaviour
             if (enemies[i].isActiveAndEnabled)
             {
                 enemies[i].SetOutline(true);
+                yield return new WaitForSeconds(0.2f);
                 yield return StartCoroutine(enemies[i].MoveEnemy());
+                yield return new WaitForSeconds(0.2f);
                 enemies[i].SetOutline(false);
             }
         }
