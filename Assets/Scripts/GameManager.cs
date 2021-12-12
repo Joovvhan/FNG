@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
             {
                 if (chanceCount > 0)
                 {
-                    if (Input.GetKeyDown(KeyCode.Q))
+                    if (Input.GetKeyDown(KeyCode.A))
                     {
                         if (chanceTurn == 0)
                         {
