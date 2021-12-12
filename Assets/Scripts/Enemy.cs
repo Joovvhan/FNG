@@ -18,6 +18,7 @@ public class Enemy : Character
     protected bool isStunned;
 
     private GameObject outline;
+    private Transform spriteContainer;
 
     protected override void Start()
     {
@@ -33,6 +34,7 @@ public class Enemy : Character
         anim = GetComponent<Animator>();
         isStunned = false;
         outline = transform.Find("Sprite Container").Find("Sprite").Find("Outline").gameObject;
+        spriteContainer = transform.Find("Sprite Container");
     }
 
     protected void SetDirection()
@@ -45,7 +47,8 @@ public class Enemy : Character
         {
             forward = 1;
         }
-        transform.localScale = new Vector3(forward, 1, 1);
+        //transform.localScale = new Vector3(forward, 1, 1);
+        spriteContainer.localScale = new Vector3(forward, 1, 1);
     }
 
     public virtual IEnumerator MoveEnemy()
