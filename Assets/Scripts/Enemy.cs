@@ -58,11 +58,11 @@ public class Enemy : Character
 
             if (turnCount % 2 == 0)
             {
-                yield return StartCoroutine(BasicAttack());
+                yield return StartCoroutine(PrepareAttack());
             }
             else if (turnCount % 2 == 1)
             {
-                yield return StartCoroutine(DoNothing());
+                yield return StartCoroutine(BasicAttack());
             }
         }
         turnCount += 1;
