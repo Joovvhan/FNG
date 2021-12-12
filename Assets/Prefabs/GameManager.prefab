@@ -48,6 +48,8 @@ MonoBehaviour:
   playerMoving: 0
   enemiesMoving: 0
   enemies: []
+  statusText: {fileID: 0}
+  chanceText: {fileID: 0}
 --- !u!114 &2524298838616017771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,11 +68,11 @@ MonoBehaviour:
   playerPrefab: {fileID: 4727672532300170324, guid: 9e7484a714a2440bca96aaa919297f70, type: 3}
   warriorPrefab: {fileID: 749621466693800095, guid: 63f454154dc6478439c56afa7c3229a0, type: 3}
   archerPrefab: {fileID: 749621466693800095, guid: fffa2add2f7bfa14089bd86614bbfbb5, type: 3}
-  traversingPrefab: {fileID: 0}
+  testPrefab: {fileID: 749621466693800095, guid: a452c0916544541a3bf6b4b8328ce6a9, type: 3}
   grid: []
   playerPosition: 0
   treePositions: 
-  warriorPositions: 02000000
+  warriorPositions: 04000000
   archerPositions: 07000000
   testPositions: 
   columns: 10

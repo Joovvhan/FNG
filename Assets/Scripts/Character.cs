@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using MoreMountains.Feedbacks;
 
 public abstract class Character : MonoBehaviour
 {
-    private float moveTime = 0.2f;
+    protected float moveTime = 0.2f;
     public int hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;

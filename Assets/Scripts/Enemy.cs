@@ -22,7 +22,7 @@ public class Enemy : Character
         boardManager = gameManager.GetComponent<BoardManager>();
         boardManager.AddEnemyToGrid((int)transform.position.x, this);
         player = GameObject.FindGameObjectWithTag("Player");
-        hp = 2;
+        // hp = 2;
         //isBlocking = true;
         base.Start();
         anim = GetComponent<Animator>();

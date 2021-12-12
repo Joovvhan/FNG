@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,15 +15,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playerMoving = false;
     [HideInInspector] public bool enemiesMoving = false;
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
-    private UnityEngine.UI.Text text;
+
+    [SerializeField] Text statusText = null;
+    [SerializeField] TextMeshProUGUI chanceText = null;
     private Player player;
-    private int chanceTurn = 0;
+    private int chanceTurn = 1;
     private bool gameOver = false;
 
     void Awake()
     {
         boardScript = GetComponent<BoardManager>();
-        text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
         InitGame();
     }
 
@@ -35,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         gameOver = true;
-        string msg = "Player's Lost!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+        string msg = "Player's Lost!";
         yield return StartCoroutine(Reload(msg));
     }
 
@@ -71,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         if (disabledCount == enemies.Count)
         {
-            string msg = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            string msg = "Player's Won!";
             yield return StartCoroutine(Reload(msg));
         }
 
@@ -99,17 +102,26 @@ public class GameManager : MonoBehaviour
 
     void SetText()
     {
+        string chanceTurnString = chanceTurn.ToString();
+        if(chanceTurn == 0)
+        {
+            chanceTurnString = "CHANCE!";
+        }
+
         if (playerMoving)
         {
-            text.text = "Player Moving" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            statusText.text = "- PLAYER MOVING -";
+            chanceText.text = chanceTurnString;
         }
         else if (playersTurn)
         {
-            text.text = "Player's Turn" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            statusText.text = "- PLAYER TURN -";
+            chanceText.text = chanceTurnString;
         }
         else if (enemiesMoving)
         {
-            text.text = "Enemy Moving" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            statusText.text = "- ENEMY TURN -";
+            chanceText.text = chanceTurnString;
         }
     }
 
@@ -125,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Reload(string msg)
     {
-        text.text = msg;
+        chanceText.text = msg;
         yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(1);
     }
