@@ -960,12 +960,16 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archerPrefab1
+      value: 
+      objectReference: {fileID: 749621466693800095, guid: 4f297a857a7150246a3b0f0bea729f49, type: 3}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: warriorPositions.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.data[0]
@@ -973,7 +977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: warriorPositions.Array.data[0]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: chanceText
@@ -983,6 +987,10 @@ PrefabInstance:
       propertyPath: statusText
       value: 
       objectReference: {fileID: 1269640457}
+    - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: chanceTurnCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017773, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: m_RootOrder
       value: 1

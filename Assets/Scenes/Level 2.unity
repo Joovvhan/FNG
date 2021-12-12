@@ -957,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: columns
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPrefab1
@@ -965,11 +965,35 @@ PrefabInstance:
       objectReference: {fileID: 749621466693800095, guid: 4f297a857a7150246a3b0f0bea729f49, type: 3}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archer1Positions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: warriorPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archerPositions.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archerPositions.Array.data[1]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archer1Positions.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archer1Positions.Array.data[1]
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: warriorPositions.Array.data[0]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: chanceText

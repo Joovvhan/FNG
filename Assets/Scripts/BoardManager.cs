@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject warriorPrefab;
     public GameObject archerPrefab;
+    public GameObject archerPrefab1;
     private Transform boardHolder;
 
     public GameObject testPrefab;
@@ -21,6 +22,7 @@ public class BoardManager : MonoBehaviour
     public List<int> treePositions = new List<int>();
     public List<int> warriorPositions = new List<int>();
     public List<int> archerPositions = new List<int>();
+    public List<int> archer1Positions = new List<int>();
 
     public List<int> testPositions = new List<int>();
 
@@ -72,6 +74,12 @@ public class BoardManager : MonoBehaviour
         foreach (int v in archerPositions)
         {
             GameObject instance = Instantiate(archerPrefab, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
+        foreach (int v in archer1Positions)
+        {
+            GameObject instance = Instantiate(archerPrefab1, new Vector3(v, 0, 0), Quaternion.identity);
             instance.transform.SetParent(boardHolder);
         }
 
