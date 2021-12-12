@@ -39,11 +39,14 @@ public class Player : Character
     {
         if (!gameManager.playersTurn || gameManager.playerMoving) return;
 
+        defense = false;
+        anim.SetBool("isDefensing", false);
+        anim.SetBool("isCountering", false);
+
         int command = GetCommand();
         if (command != 0)
         {
-            //def = 0;
-            defense = false;
+
             if (command == 1 || command == 2) // ">", "<"
             {
                 StartCoroutine(TryMove(command));
@@ -123,7 +126,16 @@ public class Player : Character
         List<int> attackPositions = new List<int> { (int)transform.position.x, (int)transform.position.x + forward };
         gameManager.playerMoving = true;
         //Debug.Log("Player Attack");
-        anim.SetTrigger("Attack");
+
+        if (gameManager.IsChance())
+        {
+            anim.SetTrigger("SpecialAttack");
+        }
+        else
+        {
+            anim.SetTrigger("Attack");
+        }
+        
         yield return new WaitForSeconds(0.5f);
 
         int dmg = atk;
@@ -144,6 +156,14 @@ public class Player : Character
         gameManager.playerMoving = true;
         //def = 3;
         defense = true;
+        if (gameManager.IsChance())
+        {
+            anim.SetBool("isCountering", true);
+        }
+        else
+        {
+            anim.SetBool("isDefensing", true);
+        }
         yield return new WaitForSeconds(0.5f);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
@@ -222,6 +242,12 @@ public class Player : Character
 
     public override IEnumerator LoseHP(int damage)
     {
+        if (hp <= 0)
+        {
+            Debug.Log("Player is already dead");
+            yield break;
+        }
+
         int def = 0;
         if (defense) {
             def = 3;
@@ -242,6 +268,12 @@ public class Player : Character
     public bool IsDefense()
     {
         return defense;
+    }
+
+    public IEnumerator PlayCounter()
+    {
+        anim.SetTrigger("Counter");
+        yield return new WaitForSeconds(0.5f);
     }
 
 }

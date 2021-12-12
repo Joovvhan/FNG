@@ -202,6 +202,7 @@ public class BoardManager : MonoBehaviour
                 if (gameManager.IsChance() & player.IsDefense())
                 {
                     Debug.Log("Countered Melee Attack");
+                    yield return StartCoroutine(player.PlayCounter());
                     yield return StartCoroutine(enemy.LoseHP(damage));
                 }
                 yield break;
@@ -215,6 +216,7 @@ public class BoardManager : MonoBehaviour
         if (gameManager.IsChance() & player.IsDefense())
         {
             Debug.Log("Countered Range Attack");
+            yield return StartCoroutine(player.PlayCounter());
             yield return StartCoroutine(enemy.LoseHP(damage));
         }
     }
