@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.2
-  hp: 1
+  hp: 2
   isBlocking: 0
   damageFeedback: {fileID: 1157777048}
   guardFeedback: {fileID: 3158054581074677131}

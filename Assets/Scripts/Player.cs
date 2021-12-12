@@ -298,4 +298,9 @@ public class Player : Character
         outline.SetActive(status);
     }
 
+    public void SetHP(float maxHP)
+    {
+        hp = maxHP;
+    }
+
 }

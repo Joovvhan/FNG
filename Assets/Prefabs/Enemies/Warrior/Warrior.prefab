@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.1
-  hp: 3
+  hp: 2
   isBlocking: 1
   turnCount: 0
   damageFeedback: {fileID: 1563679602}

@@ -62,6 +62,7 @@ public class BoardManager : MonoBehaviour
 
         GameObject instancePlayer = Instantiate(playerPrefab, new Vector3(playerPosition, 0f, 0f), Quaternion.identity);
         instancePlayer.transform.SetParent(boardHolder);
+        instancePlayer.GetComponent<Player>().SetHP(gameManager.playerHP);
 
         foreach (int v in treePositions)
         {

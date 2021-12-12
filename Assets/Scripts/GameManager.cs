@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
     [SerializeField] Text chanceCountText = null;
+    [SerializeField] public float playerHP;
     //private UnityEngine.UI.Text text;
 
     public int chanceCount = 1;

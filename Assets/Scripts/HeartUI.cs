@@ -47,8 +47,8 @@ public class HeartUI : MonoBehaviour
 
         for (int i = 0; i < target.hp; i++)
         {
-            if(target.hp % 1 == 0) hearts[i].ShowHeart(1f);
-            else hearts[i].ShowHeart(0.5f);    
+            hearts[i].ShowHeart(1f);
+            if(target.hp % 1 != 0 && i + 1 > target.hp) hearts[i].ShowHeart(0.5f);    
         }
     }
 }
