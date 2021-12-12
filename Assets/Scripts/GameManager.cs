@@ -233,4 +233,10 @@ public class GameManager : MonoBehaviour
             return true;
         return false;
     }
+
+    public void AddItem()
+    {
+        chanceCount += 1;
+        Debug.Log("Chance Count Up! (" + chanceCount.ToString() + ")");
+    }
 }
