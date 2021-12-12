@@ -254,20 +254,22 @@ public class Player : Character
             yield break;
         }
 
-        int def = 0;
+        float actual_damage = damage;
+        //int def = 0;
         if (defense) {
-            def = 3;
+            actual_damage = damage / 2;
         }
-        int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
+
+        //int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
 
-        if (actual_damage > 0)
+        if (defense)
         {
-            yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+            yield return StartCoroutine(guardFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
         }
         else
         {
-            yield return StartCoroutine(guardFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+            yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
         }
 
         //Debug.Log("Player Lost Health");
