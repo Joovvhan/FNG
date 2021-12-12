@@ -207,6 +207,7 @@ public class BoardManager : MonoBehaviour
         {
             if (idx == (int)player.transform.position.x) {
                 yield return StartCoroutine(player.LoseHP(damage));
+
                 if (gameManager.IsChance() & player.IsDefense())
                 {
                     Debug.Log("Countered Melee Attack");

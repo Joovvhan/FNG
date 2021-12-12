@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
+    [SerializeField] Text chanceCountText = null;
     //private UnityEngine.UI.Text text;
 
+    public int chanceCount = 1;
     public int chanceTurnCount = 4;
 
     private Player player;
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
         {
             string msg = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
             yield return StartCoroutine(GameOver(msg));
-            
+
         }
 
         if (IsPlayerDefeated())
@@ -109,6 +111,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (chanceCount > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (chanceTurn == 0)
+                {
+                    chanceTurn = 1;
+                }
+                else
+                {
+                    chanceTurn = 0;
+                }
+            }
+        }
+
+        chanceCountText.text = "Chance: " + chanceCount;
+
         if (!gameOver)
         {
             if (playersTurn || playerMoving)
@@ -127,7 +146,7 @@ public class GameManager : MonoBehaviour
     void SetText()
     {
 
-        string chanceTurnString = chanceTurn.ToString();
+        string chanceTurnString = "";
         if (chanceTurn == 0)
         {
             chanceTurnString = "CHANCE!";
@@ -158,8 +177,14 @@ public class GameManager : MonoBehaviour
 
     private void StepTurn()
     {
-        chanceTurn = (chanceTurn + 1) % chanceTurnCount;
-        //chanceTurn += 1;
+        // chanceTurn = (chanceTurn + 1) % chanceTurnCount;
+        // chanceTurn += 1;
+
+        if (IsChance())
+        {
+            chanceCount = Mathf.Clamp(chanceCount - 1, 0, chanceCount);
+        }
+        chanceTurn = 1;
     }
 
     public bool IsChance()

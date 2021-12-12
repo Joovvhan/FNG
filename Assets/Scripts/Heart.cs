@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.ProceduralImage;
 
 public class Heart : MonoBehaviour
 {
-    [SerializeField] Image fill = null;
+    [SerializeField] ProceduralImage fill = null;
     [SerializeField] Image background = null;
 
-    public void ShowHeart(bool willShow)
+    public void ShowHeart(float amount)
     {
-        fill.gameObject.SetActive(willShow);
+        fill.fillAmount = amount;
     }
 }

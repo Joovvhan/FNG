@@ -42,12 +42,13 @@ public class HeartUI : MonoBehaviour
     {
         foreach (Heart heart in currentHearts)
         {
-            heart.ShowHeart(false);
+            heart.ShowHeart(0f);
         }
 
         for (int i = 0; i < target.hp; i++)
         {
-            hearts[i].ShowHeart(true);
+            if(target.hp % 1 == 0) hearts[i].ShowHeart(1f);
+            else hearts[i].ShowHeart(0.5f);    
         }
     }
 }
