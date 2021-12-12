@@ -48,7 +48,7 @@ public class Enemy : Character
             forward = 1;
         }
         //transform.localScale = new Vector3(forward, 1, 1);
-        spriteContainer.localScale = new Vector3(forward, 1, 1);
+        spriteContainer.localScale = new Vector3(-1 * forward, 1, 1);
     }
 
     public virtual IEnumerator MoveEnemy()
