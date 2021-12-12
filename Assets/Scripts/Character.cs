@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected float moveTime = 0.2f;
-    public int hp = 3;
+    public float hp = 3;
     private Rigidbody2D rb2D;           
     private float inverseMoveTime;
     [SerializeField] public bool isBlocking = false;
@@ -37,7 +37,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public abstract IEnumerator LoseHP(int damage);
+    public abstract IEnumerator LoseHP(float damage);
 
     public float GetMoveTime()
     {

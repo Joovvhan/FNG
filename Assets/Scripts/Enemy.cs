@@ -5,14 +5,13 @@ using MoreMountains.Feedbacks;
 
 public class Enemy : Character
 {
-    //public int hp = 2;
     protected GameManager gameManager;
     protected BoardManager boardManager;
     protected GameObject player;
     public int turnCount = 0;
     //private bool done = false;
     protected int forward = -1;
-    protected int atk = 1;
+    protected float atk = 1;
     protected Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
     protected bool isStunned;
@@ -117,7 +116,7 @@ public class Enemy : Character
         //Debug.Log("Enemey Attack Finished");
     }
 
-    public override IEnumerator LoseHP(int damage)
+    public override IEnumerator LoseHP(float damage)
     {
         hp -= damage;
         yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
