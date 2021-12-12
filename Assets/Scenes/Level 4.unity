@@ -968,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: columns
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: batPrefab
@@ -988,23 +988,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
-      propertyPath: batPositions.Array.data[0]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
-      propertyPath: archer1Positions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
-      propertyPath: warriorPositions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: batPositions.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: archer1Positions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: warriorPositions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.data[0]
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.data[1]
@@ -1012,7 +1012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archer1Positions.Array.data[0]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archer1Positions.Array.data[1]
@@ -1020,11 +1020,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: warriorPositions.Array.data[0]
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: playerHP
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: chanceText
