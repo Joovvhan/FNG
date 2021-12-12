@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
     //private UnityEngine.UI.Text text;
+
+    public int chanceTurnCount = 4;
+
     private Player player;
     private int chanceTurn = 1;
     //private int chanceTurn = 0;
@@ -155,13 +158,13 @@ public class GameManager : MonoBehaviour
 
     private void StepTurn()
     {
-        chanceTurn = (chanceTurn + 1) % 3;
+        chanceTurn = (chanceTurn + 1) % chanceTurnCount;
         //chanceTurn += 1;
     }
 
     public bool IsChance()
     {
-        return (chanceTurn % 3 == 0);
+        return (chanceTurn % chanceTurnCount == 0);
     }
 
     private IEnumerator Reload(string msg)

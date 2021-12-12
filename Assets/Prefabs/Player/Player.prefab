@@ -221,7 +221,7 @@ MonoBehaviour:
   DebugActive: 0
   Mode: 0
   TimeScale: 0
-  AnimateScaleTarget: {fileID: 440495758029030349}
+  AnimateScaleTarget: {fileID: 2177808376910642876}
   AnimateScaleDuration: 0.2
   RemapCurveZero: 1
   RemapCurveOne: 1.1
@@ -644,7 +644,7 @@ MonoBehaviour:
   hp: 1
   isBlocking: 0
   damageFeedback: {fileID: 1157777048}
-  chanceDistance: 2
+  chanceDistance: 1
   chanceDamage: 2
 --- !u!95 &3878913710998844320
 Animator:

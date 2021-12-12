@@ -9,7 +9,7 @@ public class Enemy : Character
     protected GameManager gameManager;
     protected BoardManager boardManager;
     protected GameObject player;
-    protected int turnCount = 0;
+    public int turnCount = 0;
     //private bool done = false;
     protected int forward = -1;
     protected int atk = 1;
