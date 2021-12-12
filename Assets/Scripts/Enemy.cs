@@ -17,6 +17,8 @@ public class Enemy : Character
     [SerializeField] protected MMFeedbacks damageFeedback;
     protected bool isStunned;
 
+    private GameObject outline;
+
     protected override void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -30,6 +32,7 @@ public class Enemy : Character
         base.Start();
         anim = GetComponent<Animator>();
         isStunned = false;
+        outline = transform.Find("Sprite Container").Find("Sprite").Find("Outline").gameObject;
     }
 
     protected void SetDirection()
@@ -147,6 +150,11 @@ public class Enemy : Character
     {
         isStunned = true;
         Debug.Log("An enemy is stunned");
+    }
+
+    public void SetOutline(bool status)
+    {
+        outline.SetActive(status);
     }
 
 }

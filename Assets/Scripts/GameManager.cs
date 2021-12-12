@@ -71,7 +71,9 @@ public class GameManager : MonoBehaviour
         {
             if (enemies[i].isActiveAndEnabled)
             {
+                enemies[i].SetOutline(true);
                 yield return StartCoroutine(enemies[i].MoveEnemy());
+                enemies[i].SetOutline(false);
             }
         }
 
