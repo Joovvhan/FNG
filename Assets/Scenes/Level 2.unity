@@ -318,6 +318,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &855439631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 860887393, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
+  m_PrefabInstance: {fileID: 1779199807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1269640457 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1290436483275093763, guid: e5e281d6d97c5ed4e8c92616baf4a236, type: 3}
@@ -957,23 +968,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: columns
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: batPrefab
+      value: 
+      objectReference: {fileID: 749621466693800095, guid: fc82ee0245d064d6581d3b67ca89e5c4, type: 3}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPrefab1
       value: 
       objectReference: {fileID: 749621466693800095, guid: 4f297a857a7150246a3b0f0bea729f49, type: 3}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: playerPosition
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: batPositions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: batPositions.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archer1Positions.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: warriorPositions.Array.size
@@ -981,7 +1004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.data[0]
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archerPositions.Array.data[1]
@@ -989,7 +1012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archer1Positions.Array.data[0]
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2524298838616017771, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: archer1Positions.Array.data[1]
@@ -1007,6 +1030,10 @@ PrefabInstance:
       propertyPath: statusText
       value: 
       objectReference: {fileID: 1269640457}
+    - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
+      propertyPath: chanceCountText
+      value: 
+      objectReference: {fileID: 855439631}
     - target: {fileID: 2524298838616017772, guid: d5c50bf4c20c04d42849e5abc88fb521, type: 3}
       propertyPath: chanceTurnCount
       value: 3
