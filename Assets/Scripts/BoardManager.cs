@@ -137,6 +137,20 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
+    public bool ApproveMovementGhostMode(int index)
+    {
+        if (index < 0 || index >= grid.Count)
+        {
+            return false;
+        }
+        else if (grid[index] == null)
+        {
+            return true;
+        }
+
+        return true;
+    }
+
     public bool ApproveBlockerMovement(int index)
     {
         if ((int)player.transform.position.x == index)
