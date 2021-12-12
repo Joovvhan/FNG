@@ -644,6 +644,7 @@ MonoBehaviour:
   hp: 1
   isBlocking: 0
   damageFeedback: {fileID: 1157777048}
+  guardFeedback: {fileID: 3158054581074677131}
   chanceDistance: 1
   chanceDamage: 2
 --- !u!95 &3878913710998844320
