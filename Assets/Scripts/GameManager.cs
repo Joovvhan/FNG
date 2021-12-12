@@ -120,20 +120,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (chanceCount > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (chanceTurn == 0)
-                {
-                    chanceTurn = 1;
-                }
-                else
-                {
-                    chanceTurn = 0;
-                }
-            }
-        }
 
         chanceCountText.text = "Chance: " + chanceCount;
 
@@ -141,6 +127,20 @@ public class GameManager : MonoBehaviour
         {
             if (playersTurn || playerMoving)
             {
+                if (chanceCount > 0)
+                {
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        if (chanceTurn == 0)
+                        {
+                            chanceTurn = 1;
+                        }
+                        else
+                        {
+                            chanceTurn = 0;
+                        }
+                    }
+                }
                 SetText();
                 return;
             }
