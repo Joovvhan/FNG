@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public int currentStage;
     //public static GameManager instance = null;
     private BoardManager boardScript;
     //private float turnDelay = 0.5f;
@@ -54,6 +55,13 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(Reload(msg));
     }
 
+    public IEnumerator GameClear(string msg)
+    {
+        Debug.Log("Game Clear");
+        gameOver = true;
+        yield return StartCoroutine(ReloadNext(msg));
+    }
+
     public void AddEnemyToList(Enemy script)
     {
         enemies.Add(script);
@@ -99,7 +107,8 @@ public class GameManager : MonoBehaviour
         if (IsGameCleared())
         {
             string msg = "Player's Won!";
-            yield return StartCoroutine(GameOver(msg));
+            //yield return StartCoroutine(GameOver(msg));
+            yield return StartCoroutine(GameClear(msg));
 
         }
 
@@ -205,7 +214,14 @@ public class GameManager : MonoBehaviour
     {
         statusText.text = msg;
         yield return new WaitForSeconds(3.0f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(currentStage);
+    }
+
+    private IEnumerator ReloadNext(string msg)
+    {
+        statusText.text = msg;
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(currentStage + 1);
     }
 
     private void ClearDeadEnemies()
