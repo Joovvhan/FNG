@@ -212,7 +212,7 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
-    public IEnumerator SetDamage(List<int> indices, int damage)
+    public IEnumerator SetDamage(List<int> indices, float damage)
     {
         foreach (int index in indices)
         {
@@ -248,7 +248,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SetPlayerDamage(List<int> indices, int damage, Enemy enemy)
+    public IEnumerator SetPlayerDamage(List<int> indices, float damage, Enemy enemy)
     {
         foreach (int idx in indices)
         {
@@ -266,7 +266,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SetPlayerDamage(int damage, Enemy enemy)
+    public IEnumerator SetPlayerDamage(float damage, Enemy enemy)
     {
         yield return StartCoroutine(player.LoseHP(damage));
         if (gameManager.IsChance() & player.IsDefense())

@@ -9,9 +9,8 @@ public class Player : Character
 {
     private GameManager gameManager;
     private BoardManager boardManager;
-    //private int def = 0;
     private bool defense = false;
-    private int atk = 1;
+    private float atk = 1;
     private int forward = 1;
 
     private GameObject outline;
@@ -145,7 +144,7 @@ public class Player : Character
         
         yield return new WaitForSeconds(0.5f);
 
-        int dmg = atk;
+        float dmg = atk;
         if (gameManager.IsChance())
         {
             dmg *= chanceDamage;
@@ -161,7 +160,6 @@ public class Player : Character
     private IEnumerator TryDefense()
     {
         gameManager.playerMoving = true;
-        //def = 3;
         defense = true;
         if (gameManager.IsChance())
         {
@@ -248,7 +246,7 @@ public class Player : Character
         }
     }
 
-    public override IEnumerator LoseHP(int damage)
+    public override IEnumerator LoseHP(float damage)
     {
         if (hp <= 0)
         {
