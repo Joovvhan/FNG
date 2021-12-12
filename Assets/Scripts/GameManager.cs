@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playerMoving = false;
     [HideInInspector] public bool enemiesMoving = false;
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] private List<Trap> traps = new List<Trap>();
 
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
@@ -84,6 +85,13 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
                 enemies[i].SetOutline(false);
             }
+        }
+
+        for (int i = 0; i < traps.Count; i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+            yield return StartCoroutine(traps[i].SetNeedle());
+            yield return new WaitForSeconds(0.2f);
         }
 
         ClearDeadEnemies();
@@ -238,5 +246,15 @@ public class GameManager : MonoBehaviour
     {
         chanceCount += 1;
         Debug.Log("Chance Count Up! (" + chanceCount.ToString() + ")");
+    }
+
+    public void AddTrapToList(Trap script)
+    {
+        traps.Add(script);
+    }
+
+    public int GetPlayerPosition()
+    {
+        return (int)player.transform.position.x;
     }
 }
