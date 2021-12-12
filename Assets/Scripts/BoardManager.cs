@@ -235,7 +235,7 @@ public class BoardManager : MonoBehaviour
 
             foreach (FlyingEnemy bat in flyingEnemies)
             {
-                if (index == bat.transform.position.x)
+                if (index == bat.transform.position.x & bat.isActiveAndEnabled)
                 {
                     Debug.Log("Bat is damaged");
                     yield return StartCoroutine(bat.LoseHP(damage));
