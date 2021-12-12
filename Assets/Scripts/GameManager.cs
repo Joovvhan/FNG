@@ -90,14 +90,14 @@ public class GameManager : MonoBehaviour
 
         if (IsGameCleared())
         {
-            string msg = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            string msg = "Player's Won!";
             yield return StartCoroutine(GameOver(msg));
 
         }
 
         if (IsPlayerDefeated())
         {
-            string msg = "Player's Lost!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            string msg = "Player's Lost!";
             yield return StartCoroutine(GameOver(msg));
         }
 
@@ -155,17 +155,17 @@ public class GameManager : MonoBehaviour
 
         if (playerMoving)
         {
-            statusText.text = "- PLAYER MOVING -";
+            statusText.text = "YOUR TURN";
             chanceText.text = chanceTurnString;
         }
         else if (playersTurn)
         {
-            statusText.text = "- PLAYER TURN -";
+            statusText.text = "YOUR TURN";
             chanceText.text = chanceTurnString;
         }
         else if (enemiesMoving)
         {
-            statusText.text = "- ENEMY TURN -";
+            statusText.text = "ENEMY TURN";
             chanceText.text = chanceTurnString;
 
         }
