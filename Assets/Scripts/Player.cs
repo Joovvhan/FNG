@@ -13,6 +13,9 @@ public class Player : Character
     private bool defense = false;
     private int atk = 1;
     private int forward = 1;
+
+    private GameObject outline;
+
     Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
     //[SerializeField] private GameObject sprite;
@@ -26,7 +29,8 @@ public class Player : Character
         boardManager.SetPlayer(this);
         gameManager.SetPlayer(this);
         anim = GetComponent<Animator>();
-
+        outline = transform.Find("Sprite Container").Find("Sprite").Find("Outline").gameObject;
+        SetOutline(true);
     }
 
     private void Awake()
@@ -274,6 +278,11 @@ public class Player : Character
     {
         anim.SetTrigger("Counter");
         yield return new WaitForSeconds(0.5f);
+    }
+
+    public void SetOutline(bool status)
+    {
+        outline.SetActive(status);
     }
 
 }
