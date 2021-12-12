@@ -29,6 +29,8 @@ public class Trap : MonoBehaviour
             {
                 yield return StartCoroutine(player.LoseHP(1.0f));
             }
+            yield return new WaitForSeconds(0.6f);
+            needle.SetActive(false);
         }
         else
         {
