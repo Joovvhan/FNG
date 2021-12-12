@@ -11,18 +11,21 @@ public class BoardManager : MonoBehaviour
     public GameObject warriorPrefab;
     public GameObject archerPrefab;
     public GameObject archerPrefab1;
+    public GameObject batPrefab;
     private Transform boardHolder;
 
     public GameObject testPrefab;
 
     //private List<int> gridPositions = new List<int>();
     [SerializeField] private List<Enemy> grid = new List<Enemy>();
+    [SerializeField] private List<FlyingEnemy> flyingEnemies = new List<FlyingEnemy>();
 
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
     public List<int> warriorPositions = new List<int>();
     public List<int> archerPositions = new List<int>();
     public List<int> archer1Positions = new List<int>();
+    public List<int> batPositions = new List<int>();
 
     public List<int> testPositions = new List<int>();
 
@@ -37,6 +40,7 @@ public class BoardManager : MonoBehaviour
     {
         //gridPositions.Clear();
         grid.Clear();
+        flyingEnemies.Clear();
         for (int x = 0; x < columns; x++)
         {
             //gridPositions.Add(x);
@@ -83,6 +87,12 @@ public class BoardManager : MonoBehaviour
             instance.transform.SetParent(boardHolder);
         }
 
+        foreach (int v in batPositions)
+        {
+            GameObject instance = Instantiate(batPrefab, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
         foreach (int v in testPositions)
         {
             GameObject instance = Instantiate(testPrefab, new Vector3(v, 0, 0), Quaternion.identity);
@@ -98,14 +108,23 @@ public class BoardManager : MonoBehaviour
 
     public bool AddEnemyToGrid(int idx, Enemy script)
     {
-        if (idx < 0 || idx > grid.Count){
-            return false;
+        if (script is FlyingEnemy)
+        {
+            AddFlyingEnemies(script as FlyingEnemy);
+            return true;
         }
         else
         {
-            grid[idx] = script;
+            if (idx < 0 || idx > grid.Count)
+            {
+                return false;
+            }
+            else
+            {
+                grid[idx] = script;
+            }
+            return true;
         }
-        return true;
     }
 
     public bool RemoveEnemyFromGrid(int idx)
@@ -169,6 +188,21 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
+    public void AddFlyingEnemies(FlyingEnemy enemy)
+    {
+        flyingEnemies.Add(enemy);
+    }
+
+    public bool ApproveFlying(int index)
+    {
+        if (index < 0 || index >= grid.Count)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public bool SetMovementGrid(int prev, int next)
     {
         var unit = grid[prev];
@@ -196,6 +230,19 @@ public class BoardManager : MonoBehaviour
                 if (gameManager.IsChance())
                 {
                     grid[index].SetStunned();
+                }
+            }
+
+            foreach (FlyingEnemy bat in flyingEnemies)
+            {
+                if (index == bat.transform.position.x)
+                {
+                    Debug.Log("Bat is damaged");
+                    yield return StartCoroutine(bat.LoseHP(damage));
+                    if (gameManager.IsChance())
+                    {
+                        bat.SetStunned();
+                    }
                 }
             }
         }
@@ -234,6 +281,10 @@ public class BoardManager : MonoBehaviour
         player = p;
     }
 
+    public int GetPlayerPosition()
+    {
+        return (int)player.transform.position.x;
+    }
 
     void Start()
     {
