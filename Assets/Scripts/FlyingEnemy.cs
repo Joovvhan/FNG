@@ -33,15 +33,10 @@ public class FlyingEnemy : Enemy
         int old_x = (int)transform.position.x;
         int target_x = old_x + xDir;
 
-        Debug.Log(boardManager.ApproveFlying(target_x));
-        Debug.Log(target_x);
-
         if (boardManager.ApproveFlying(target_x))
         {
             anim.SetBool("isRunning", true);
-            Debug.Log("Before Move");
             yield return StartCoroutine(Move(xDir));
-            Debug.Log("After Move");
             anim.SetBool("isRunning", false);
         }
     }
