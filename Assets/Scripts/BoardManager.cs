@@ -26,6 +26,8 @@ public class BoardManager : MonoBehaviour
 
     private Player player;
 
+    private GameManager gameManager;
+
     public int columns = 8;
     //public int rows = 8;
 
@@ -79,6 +81,11 @@ public class BoardManager : MonoBehaviour
             instance.transform.SetParent(boardHolder);
         }
 
+    }
+
+    public void SetGameManager(GameManager manager)
+    {
+        gameManager = manager;
     }
 
     public bool AddEnemyToGrid(int idx, Enemy script)
@@ -168,20 +175,30 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SetPlayerDamage(List<int> indices, int damage)
+    public IEnumerator SetPlayerDamage(List<int> indices, int damage, Enemy enemy)
     {
         foreach (int idx in indices)
         {
             if (idx == (int)player.transform.position.x) {
                 yield return StartCoroutine(player.LoseHP(damage));
+                if (gameManager.IsChance() & player.IsDefense())
+                {
+                    Debug.Log("Countered Melee Attack");
+                    yield return StartCoroutine(enemy.LoseHP(damage));
+                }
                 yield break;
             }
         }
     }
 
-    public IEnumerator SetPlayerDamage(int damage)
+    public IEnumerator SetPlayerDamage(int damage, Enemy enemy)
     {
         yield return StartCoroutine(player.LoseHP(damage));
+        if (gameManager.IsChance() & player.IsDefense())
+        {
+            Debug.Log("Countered Range Attack");
+            yield return StartCoroutine(enemy.LoseHP(damage));
+        }
     }
 
     public void SetPlayer(Player p)

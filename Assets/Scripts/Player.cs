@@ -3,18 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using MoreMountains.Feedbacks;
 
 public class Player : Character
 {
-    public int wallDamage = 1;
-    //public int hp = 3;
     private GameManager gameManager;
     private BoardManager boardManager;
-    private int def = 0;
+    //private int def = 0;
+    private bool defense = false;
     private int atk = 1;
     private int forward = 1;
     Animator anim;
+    [SerializeField] protected MMFeedbacks damageFeedback;
     //[SerializeField] private GameObject sprite;
+    [SerializeField] private int chanceDistance = 3;
+    [SerializeField] private int chanceDamage = 2;
 
     protected override void Start()
     {
@@ -24,6 +27,7 @@ public class Player : Character
         boardManager.SetPlayer(this);
         gameManager.SetPlayer(this);
         anim = GetComponent<Animator>();
+
     }
 
     private void Awake()
@@ -39,29 +43,31 @@ public class Player : Character
         int command = GetCommand();
         if (command != 0)
         {
-            def = 0;
-            if (command == 1 || command == 2)
+            //def = 0;
+            defense = false;
+            if (command == 1 || command == 2) // ">", "<"
             {
                 StartCoroutine(TryMove(command));
             }
 
-            else if (command == 3)
+            else if (command == 3) // "Z"
             {
                 StartCoroutine(BasicAttack());
             }
 
-            else if(command == 4)
+            else if(command == 4) // "X"
             {
                 StartCoroutine(TryDefense());
                 Debug.Log("Defense");
             }
 
-            else if (command == 5)
+            else if (command == 5) // "C"
             {
-                StartCoroutine(TryBackStep());
+                //StartCoroutine(TryBackStep());
+                StartCoroutine(TryTurn());
             }
 
-            else if (command == 6)
+            else if (command == 6) // "SPACEBAR"
             {
                 Debug.Log("Skip!");
                 gameManager.playersTurn = false;
@@ -76,9 +82,14 @@ public class Player : Character
             dir = -1;
         }
 
-        forward = dir;
-        //sprite.transform.localScale = new Vector3(dir, 1, 1);
-        transform.localScale = new Vector3(dir, 1, 1);
+        //forward = dir;
+        ////sprite.transform.localScale = new Vector3(dir, 1, 1);
+        //transform.localScale = new Vector3(dir, 1, 1);
+
+        if (gameManager.IsChance())
+        {
+            dir *= chanceDistance;
+        }
 
         int target_x = (int)transform.position.x + dir;
         if (boardManager.ApproveMovement(target_x))
@@ -100,7 +111,14 @@ public class Player : Character
         //Debug.Log("Player Attack");
         anim.SetTrigger("Attack");
         yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(boardManager.SetDamage(attackPositions, atk));
+
+        int dmg = atk;
+        if (gameManager.IsChance())
+        {
+            dmg *= chanceDistance;
+        }
+
+        yield return StartCoroutine(boardManager.SetDamage(attackPositions, dmg));
         anim.SetTrigger("Idle");
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
@@ -110,8 +128,9 @@ public class Player : Character
     private IEnumerator TryDefense()
     {
         gameManager.playerMoving = true;
-        def = 3;
-        yield return new WaitForSeconds(1.0f);
+        //def = 3;
+        defense = true;
+        yield return new WaitForSeconds(0.5f);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
     }
@@ -128,6 +147,19 @@ public class Player : Character
             gameManager.playersTurn = false;
             gameManager.playerMoving = false;
         }
+    }
+
+    private IEnumerator TryTurn()
+    {
+        forward = -1 * forward;
+        transform.localScale = new Vector3(forward, 1, 1);
+
+        gameManager.playerMoving = true;
+        anim.SetBool("isRunning", true);
+        yield return new WaitForSeconds(0.2f);
+        anim.SetBool("isRunning", false);
+        //gameManager.playersTurn = false;
+        gameManager.playerMoving = false;
     }
 
     private int GetCommand()
@@ -165,16 +197,6 @@ public class Player : Character
         return 0;
     }
 
-    //protected override void AttemptMove<T>(int xDir, int yDir)
-    //{
-    //    base.AttemptMove<T>(xDir, yDir);
-
-    //    RaycastHit2D hit;
-    //    Move(xDir, yDir, out hit);
-    //    CheckIfGameOver();
-    //    gameManager.playersTurn = false;
-    //}
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Exit")
@@ -184,31 +206,28 @@ public class Player : Character
         }
     }
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    private void CheckIfGameOver()
-    {
-        if (false)
-        {
-            gameManager.GameOver();
-        }
-    }
-
     public override IEnumerator LoseHP(int damage)
     {
+        int def = 0;
+        if (defense) {
+            def = 3;
+        }
         int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
-        Debug.Log("Player Lost Health");
+        yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+        //Debug.Log("Player Lost Health");
         if (hp <= 0)
         {
             anim.SetTrigger("Die");
-            StartCoroutine(gameManager.GameOver());
-            yield return new WaitForSeconds(1.0f);
-            gameObject.SetActive(false);
+            //StartCoroutine(gameManager.GameOver());
+            //yield return new WaitForSeconds(1.0f);
+            //gameObject.SetActive(false);
         }
+    }
+
+    public bool IsDefense()
+    {
+        return defense;
     }
 
 }

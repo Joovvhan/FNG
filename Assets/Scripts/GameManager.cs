@@ -18,13 +18,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
+    //private UnityEngine.UI.Text text;
     private Player player;
     private int chanceTurn = 1;
+    //private int chanceTurn = 0;
     private bool gameOver = false;
 
     void Awake()
     {
         boardScript = GetComponent<BoardManager>();
+        boardScript.SetGameManager(this);
+        //text = GameObject.Find("Text").GetComponent<UnityEngine.UI.Text>();
+
         InitGame();
     }
 
@@ -34,11 +39,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator GameOver()
+    public IEnumerator GameOver(string msg)
     {
         Debug.Log("Game Over");
         gameOver = true;
-        string msg = "Player's Lost!";
         yield return StartCoroutine(Reload(msg));
     }
 
@@ -59,24 +63,33 @@ public class GameManager : MonoBehaviour
 
         SetText();
 
-        int disabledCount = 0;
+        ClearDeadEnemies();
+
         for (int i = 0; i < enemies.Count; i++)
         {
             if (enemies[i].isActiveAndEnabled)
             {
                 yield return StartCoroutine(enemies[i].MoveEnemy());
             }
-            else
-            {
-                disabledCount += 1;
-            }
         }
 
-        if (disabledCount == enemies.Count)
+        ClearDeadEnemies();
+
+        if (IsGameCleared())
         {
-            string msg = "Player's Won!";
-            yield return StartCoroutine(Reload(msg));
+            string msg = "Player's Won!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            yield return StartCoroutine(GameOver(msg));
+            
         }
+
+        if (IsPlayerDefeated())
+        {
+            string msg = "Player's Lost!" + "/" + player.hp.ToString() + "/" + chanceTurn.ToString();
+            yield return StartCoroutine(GameOver(msg));
+        }
+
+
+        yield return new WaitForSeconds(turnDelay);
 
         playersTurn = true;
         enemiesMoving = false;
@@ -102,8 +115,9 @@ public class GameManager : MonoBehaviour
 
     void SetText()
     {
+
         string chanceTurnString = chanceTurn.ToString();
-        if(chanceTurn == 0)
+        if (chanceTurn == 0)
         {
             chanceTurnString = "CHANCE!";
         }
@@ -122,6 +136,7 @@ public class GameManager : MonoBehaviour
         {
             statusText.text = "- ENEMY TURN -";
             chanceText.text = chanceTurnString;
+
         }
     }
 
@@ -130,15 +145,52 @@ public class GameManager : MonoBehaviour
         return chanceTurn;
     }
 
-    public void StepTurn()
+    private void StepTurn()
     {
         chanceTurn = (chanceTurn + 1) % 3;
+        //chanceTurn += 1;
+    }
+
+    public bool IsChance()
+    {
+        return (chanceTurn % 3 == 0);
     }
 
     private IEnumerator Reload(string msg)
     {
-        chanceText.text = msg;
+        statusText.text = msg;
         yield return new WaitForSeconds(3.0f);
         SceneManager.LoadScene(1);
+    }
+
+    private void ClearDeadEnemies()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].isActiveAndEnabled)
+            {
+                if (enemies[i].IsDead())
+                {
+                    enemies[i].gameObject.SetActive(false);
+                    boardScript.RemoveEnemyFromGrid((int)enemies[i].transform.position.x);
+                }
+            }
+        }
+    }
+
+    private bool IsGameCleared()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+            if (enemies[i].isActiveAndEnabled)
+                return false;
+
+        return true;
+    }
+
+    private bool IsPlayerDefeated()
+    {
+        if (player.IsDead())
+            return true;
+        return false;
     }
 }

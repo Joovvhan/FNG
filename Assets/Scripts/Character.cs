@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using MoreMountains.Feedbacks;
 
 public abstract class Character : MonoBehaviour
 {
@@ -44,4 +43,10 @@ public abstract class Character : MonoBehaviour
     {
         return moveTime;
     }
+
+    public bool IsDead()
+    {
+        return (hp <= 0);
+    }
+
 }

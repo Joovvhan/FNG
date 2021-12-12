@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f163688ec7319438fea5980927634e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   target: {fileID: -8317663422445375363}
   hearts:
   - {fileID: 6439408905176539485}
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   isBlocking: 1
+  damageFeedback: {fileID: 1563679602}
 --- !u!95 &6000782953659028749
 Animator:
   serializedVersion: 3
