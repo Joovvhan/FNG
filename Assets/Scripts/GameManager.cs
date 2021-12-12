@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 {
     //public static GameManager instance = null;
     private BoardManager boardScript;
-    private float turnDelay = 0.5f;
+    //private float turnDelay = 0.5f;
+    private float turnDelay = 1.0f;
 
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public bool playerMoving = false;

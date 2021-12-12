@@ -15,7 +15,7 @@ public class BoardManager : MonoBehaviour
     public GameObject testPrefab;
 
     //private List<int> gridPositions = new List<int>();
-    [SerializeField] private List<Character> grid = new List<Character>();
+    [SerializeField] private List<Enemy> grid = new List<Enemy>();
 
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
@@ -185,6 +185,10 @@ public class BoardManager : MonoBehaviour
             else
             {
                 yield return StartCoroutine(grid[index].LoseHP(damage));
+                if (gameManager.IsChance())
+                {
+                    grid[index].SetStunned();
+                }
             }
         }
     }

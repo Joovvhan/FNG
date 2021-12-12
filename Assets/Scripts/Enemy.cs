@@ -50,7 +50,7 @@ public class Enemy : Character
         if (isStunned)
         {
             yield return new WaitForSeconds(0.2f);
-;           isStunned = false;
+            isStunned = false;
         }
         else
         {
@@ -143,6 +143,12 @@ public class Enemy : Character
         anim.SetTrigger("Launch");
         yield return new WaitForSeconds(0.8f);
         yield return StartCoroutine(boardManager.SetPlayerDamage(atk, this));
+    }
+
+    public void SetStunned()
+    {
+        isStunned = true;
+        Debug.Log("An enemy is stunned");
     }
 
 }

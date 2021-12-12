@@ -129,7 +129,7 @@ public class Player : Character
         int dmg = atk;
         if (gameManager.IsChance())
         {
-            dmg *= chanceDistance;
+            dmg *= chanceDamage;
         }
 
         yield return StartCoroutine(boardManager.SetDamage(attackPositions, dmg));

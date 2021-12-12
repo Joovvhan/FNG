@@ -6,14 +6,22 @@ public class ArcherEnemy : Enemy
 {
     override public IEnumerator MoveEnemy()
     {
-        SetDirection();
-        if (turnCount % 2 == 0)
+        if (isStunned)
         {
-            yield return StartCoroutine(PrepareAttack());
+            yield return new WaitForSeconds(0.2f);
+            isStunned = false;
         }
-        else if (turnCount % 2 == 1)
+        else
         {
-            yield return StartCoroutine(RangeAttack());
+            SetDirection();
+            if (turnCount % 2 == 0)
+            {
+                yield return StartCoroutine(PrepareAttack());
+            }
+            else if (turnCount % 2 == 1)
+            {
+                yield return StartCoroutine(RangeAttack());
+            }
         }
         turnCount += 1;
     }
