@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 
 public class Enemy : Character
 {
@@ -13,6 +14,7 @@ public class Enemy : Character
     protected int forward = -1;
     protected int atk = 1;
     Animator anim;
+    [SerializeField] protected MMFeedbacks damageFeedback;
 
     protected override void Start()
     {
@@ -109,6 +111,7 @@ public class Enemy : Character
     public override IEnumerator LoseHP(int damage)
     {
         hp -= damage;
+        yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
         if (hp <= 0)
         {
             anim.SetTrigger("Die");

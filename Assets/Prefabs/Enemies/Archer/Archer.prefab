@@ -2132,6 +2132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   isBlocking: 0
+  damageFeedback: {fileID: 1530952067}
 --- !u!95 &2935667960615998972
 Animator:
   serializedVersion: 3

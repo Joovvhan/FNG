@@ -278,8 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  isBlokcing: 0
-  wallDamage: 1
+  isBlocking: 0
+  damageFeedback: {fileID: 1157777048}
 --- !u!95 &3878913710998844320
 Animator:
   serializedVersion: 3

@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using MoreMountains.Feedbacks;
 
 public class Player : Character
 {
-    public int wallDamage = 1;
-    //public int hp = 3;
     private GameManager gameManager;
     private BoardManager boardManager;
     private int def = 0;
     private int atk = 1;
     private int forward = 1;
     Animator anim;
+    [SerializeField] protected MMFeedbacks damageFeedback;
     //[SerializeField] private GameObject sprite;
 
     protected override void Start()
@@ -24,6 +24,7 @@ public class Player : Character
         boardManager.SetPlayer(this);
         gameManager.SetPlayer(this);
         anim = GetComponent<Animator>();
+
     }
 
     private void Awake()
@@ -165,16 +166,6 @@ public class Player : Character
         return 0;
     }
 
-    //protected override void AttemptMove<T>(int xDir, int yDir)
-    //{
-    //    base.AttemptMove<T>(xDir, yDir);
-
-    //    RaycastHit2D hit;
-    //    Move(xDir, yDir, out hit);
-    //    CheckIfGameOver();
-    //    gameManager.playersTurn = false;
-    //}
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Exit")
@@ -184,24 +175,12 @@ public class Player : Character
         }
     }
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    private void CheckIfGameOver()
-    {
-        if (false)
-        {
-            gameManager.GameOver();
-        }
-    }
-
     public override IEnumerator LoseHP(int damage)
     {
         int actual_damage = (int)Mathf.Clamp((damage - def), 0, 99);
         hp -= actual_damage;
-        Debug.Log("Player Lost Health");
+        yield return StartCoroutine(damageFeedback.PlayFeedbacksCoroutine(this.transform.position, 1.0f, false));
+        //Debug.Log("Player Lost Health");
         if (hp <= 0)
         {
             anim.SetTrigger("Die");
