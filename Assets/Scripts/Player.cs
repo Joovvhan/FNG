@@ -15,6 +15,7 @@ public class Player : Character
     private int forward = 1;
 
     private GameObject outline;
+    private Transform spriteContainer;
 
     Animator anim;
     [SerializeField] protected MMFeedbacks damageFeedback;
@@ -30,6 +31,7 @@ public class Player : Character
         gameManager.SetPlayer(this);
         anim = GetComponent<Animator>();
         outline = transform.Find("Sprite Container").Find("Sprite").Find("Outline").gameObject;
+        spriteContainer = transform.Find("Sprite Container");
         SetOutline(true);
     }
 
@@ -190,7 +192,8 @@ public class Player : Character
     private IEnumerator TryTurn()
     {
         forward = -1 * forward;
-        transform.localScale = new Vector3(forward, 1, 1);
+        spriteContainer.localScale = new Vector3(forward, 1, 1);
+        //transform.localScale = new Vector3(forward, 1, 1);
 
         gameManager.playerMoving = true;
         anim.SetBool("isRunning", true);
