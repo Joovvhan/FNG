@@ -23,8 +23,8 @@ public class BoardManager : MonoBehaviour
     public int playerPosition = 0;
     public List<int> treePositions = new List<int>();
     public List<int> warriorPositions = new List<int>();
-    public List<int> archerPositions = new List<int>();
     public List<int> archer1Positions = new List<int>();
+    public List<int> archerPositions = new List<int>();
     public List<int> batPositions = new List<int>();
 
     public List<int> testPositions = new List<int>();
@@ -76,15 +76,15 @@ public class BoardManager : MonoBehaviour
             instance.transform.SetParent(boardHolder);
         }
 
-        foreach (int v in archerPositions)
-        {
-            GameObject instance = Instantiate(archerPrefab, new Vector3(v, 0, 0), Quaternion.identity);
-            instance.transform.SetParent(boardHolder);
-        }
-
         foreach (int v in archer1Positions)
         {
             GameObject instance = Instantiate(archerPrefab1, new Vector3(v, 0, 0), Quaternion.identity);
+            instance.transform.SetParent(boardHolder);
+        }
+
+        foreach (int v in archerPositions)
+        {
+            GameObject instance = Instantiate(archerPrefab, new Vector3(v, 0, 0), Quaternion.identity);
             instance.transform.SetParent(boardHolder);
         }
 
@@ -157,7 +157,7 @@ public class BoardManager : MonoBehaviour
         {
             return true;
         }
-        else if(grid[index].isBlocking)
+        else if (grid[index].isBlocking)
         {
             return false;
         }
@@ -184,7 +184,7 @@ public class BoardManager : MonoBehaviour
         if ((int)player.transform.position.x == index)
         {
             return false;
-        } 
+        }
 
         return true;
     }
@@ -219,11 +219,11 @@ public class BoardManager : MonoBehaviour
         {
             if (index < 0 || index >= grid.Count)
             {
-                
+
             }
             else if (grid[index] == null)
             {
-                
+
             }
             else
             {
@@ -253,7 +253,8 @@ public class BoardManager : MonoBehaviour
     {
         foreach (int idx in indices)
         {
-            if (idx == (int)player.transform.position.x) {
+            if (idx == (int)player.transform.position.x)
+            {
                 yield return StartCoroutine(player.LoseHP(damage));
 
                 if (gameManager.IsChance() & player.IsDefense())
