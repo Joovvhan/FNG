@@ -41,28 +41,29 @@ public class Player : Character
         if (command != 0)
         {
             def = 0;
-            if (command == 1 || command == 2)
+            if (command == 1 || command == 2) // ">", "<"
             {
                 StartCoroutine(TryMove(command));
             }
 
-            else if (command == 3)
+            else if (command == 3) // "Z"
             {
                 StartCoroutine(BasicAttack());
             }
 
-            else if(command == 4)
+            else if(command == 4) // "X"
             {
                 StartCoroutine(TryDefense());
                 Debug.Log("Defense");
             }
 
-            else if (command == 5)
+            else if (command == 5) // "C"
             {
-                StartCoroutine(TryBackStep());
+                //StartCoroutine(TryBackStep());
+                StartCoroutine(TryTurn());
             }
 
-            else if (command == 6)
+            else if (command == 6) // "SPACEBAR"
             {
                 Debug.Log("Skip!");
                 gameManager.playersTurn = false;
@@ -77,9 +78,9 @@ public class Player : Character
             dir = -1;
         }
 
-        forward = dir;
-        //sprite.transform.localScale = new Vector3(dir, 1, 1);
-        transform.localScale = new Vector3(dir, 1, 1);
+        //forward = dir;
+        ////sprite.transform.localScale = new Vector3(dir, 1, 1);
+        //transform.localScale = new Vector3(dir, 1, 1);
 
         int target_x = (int)transform.position.x + dir;
         if (boardManager.ApproveMovement(target_x))
@@ -112,7 +113,7 @@ public class Player : Character
     {
         gameManager.playerMoving = true;
         def = 3;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         gameManager.playersTurn = false;
         gameManager.playerMoving = false;
     }
@@ -129,6 +130,19 @@ public class Player : Character
             gameManager.playersTurn = false;
             gameManager.playerMoving = false;
         }
+    }
+
+    private IEnumerator TryTurn()
+    {
+        forward = -1 * forward;
+        transform.localScale = new Vector3(forward, 1, 1);
+
+        gameManager.playerMoving = true;
+        anim.SetBool("isRunning", true);
+        yield return new WaitForSeconds(0.2f);
+        anim.SetBool("isRunning", false);
+        //gameManager.playersTurn = false;
+        gameManager.playerMoving = false;
     }
 
     private int GetCommand()
