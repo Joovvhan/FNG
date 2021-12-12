@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Text statusText = null;
     [SerializeField] TextMeshProUGUI chanceText = null;
-    [SerializeField] Text chanceCountText = null;
     [SerializeField] public float playerHP;
     //private UnityEngine.UI.Text text;
 
     public int chanceCount = 1;
     public int chanceTurnCount = 4;
+    public bool isActiveChanceUI = false;
 
     private Player player;
     private int chanceTurn = 1;
@@ -129,9 +129,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        chanceCountText.text = "Chance: " + chanceCount;
-
         if (!gameOver)
         {
             if (playersTurn || playerMoving)
@@ -143,10 +140,12 @@ public class GameManager : MonoBehaviour
                         if (chanceTurn == 0)
                         {
                             chanceTurn = 1;
+                            isActiveChanceUI = false;
                         }
                         else
                         {
                             chanceTurn = 0;
+                            isActiveChanceUI = true;
                         }
                     }
                 }
@@ -163,28 +162,17 @@ public class GameManager : MonoBehaviour
 
     void SetText()
     {
-
-        string chanceTurnString = "";
-        if (chanceTurn == 0)
-        {
-            chanceTurnString = "CHANCE!";
-        }
-
         if (playerMoving)
         {
             statusText.text = "YOUR TURN";
-            chanceText.text = chanceTurnString;
         }
         else if (playersTurn)
         {
             statusText.text = "YOUR TURN";
-            chanceText.text = chanceTurnString;
         }
         else if (enemiesMoving)
         {
             statusText.text = "ENEMY TURN";
-            chanceText.text = chanceTurnString;
-
         }
     }
 
@@ -197,12 +185,15 @@ public class GameManager : MonoBehaviour
     {
         // chanceTurn = (chanceTurn + 1) % chanceTurnCount;
         // chanceTurn += 1;
+        chanceTurn = 1;
+    }
 
+    public void UseChanceCount()
+    {
         if (IsChance())
         {
             chanceCount = Mathf.Clamp(chanceCount - 1, 0, chanceCount);
         }
-        chanceTurn = 1;
     }
 
     public bool IsChance()
@@ -261,6 +252,7 @@ public class GameManager : MonoBehaviour
     public void AddItem()
     {
         chanceCount += 1;
+        FindObjectOfType<ChanceUI>().SwitchChanceUI(true);
         Debug.Log("Chance Count Up! (" + chanceCount.ToString() + ")");
     }
 

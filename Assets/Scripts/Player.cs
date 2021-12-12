@@ -52,6 +52,7 @@ public class Player : Character
         int command = GetCommand();
         if (command != 0)
         {
+            gameManager.UseChanceCount();
 
             if (command == 1 || command == 2) // ">", "<"
             {
@@ -63,7 +64,7 @@ public class Player : Character
                 StartCoroutine(BasicAttack());
             }
 
-            else if(command == 4) // "X"
+            else if (command == 4) // "X"
             {
                 StartCoroutine(TryDefense());
                 Debug.Log("Defense");
@@ -75,18 +76,19 @@ public class Player : Character
                 StartCoroutine(TryTurn());
             }
 
-            else if (command == 6) // "SPACEBAR"
-            {
-                Debug.Log("Skip!");
-                gameManager.playersTurn = false;
-            }
+            // else if (command == 6) // "SPACEBAR"
+            // {
+            //     Debug.Log("Skip!");
+            //     gameManager.playersTurn = false;
+            // }
         }
     }
 
     private IEnumerator TryMove(int command)
     {
         int dir = 1;
-        if (command == 2) {
+        if (command == 2)
+        {
             dir = -1;
         }
 
@@ -96,6 +98,12 @@ public class Player : Character
 
         if (gameManager.IsChance())
         {
+            if (gameManager.chanceCount < 2)
+            {
+                FindObjectOfType<ChanceUI>().SwitchChanceUI(false);
+            }
+            gameManager.isActiveChanceUI = false;
+
             for (int i = chanceDistance; i > 0; i--)
             {
                 int new_dir = i * dir;
@@ -135,13 +143,18 @@ public class Player : Character
 
         if (gameManager.IsChance())
         {
+            gameManager.isActiveChanceUI = false;
+            if (gameManager.chanceCount < 2)
+            {
+                FindObjectOfType<ChanceUI>().SwitchChanceUI(false);
+            }
             anim.SetTrigger("SpecialAttack");
         }
         else
         {
             anim.SetTrigger("Attack");
         }
-        
+
         yield return new WaitForSeconds(0.5f);
 
         float dmg = atk;
@@ -163,6 +176,11 @@ public class Player : Character
         defense = true;
         if (gameManager.IsChance())
         {
+            if (gameManager.chanceCount < 2)
+            {
+                FindObjectOfType<ChanceUI>().SwitchChanceUI(false);
+            }
+            gameManager.isActiveChanceUI = false;
             anim.SetBool("isCountering", true);
         }
         else
@@ -256,7 +274,8 @@ public class Player : Character
 
         float actual_damage = damage;
         //int def = 0;
-        if (defense) {
+        if (defense)
+        {
             actual_damage = damage / 2;
         }
 
