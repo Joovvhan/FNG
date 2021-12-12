@@ -357,7 +357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585224618469984351}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.81, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4870468284737937110}
@@ -404,8 +404,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -6068353674990413043, guid: 231d93af519a46549a282e81c8edebb0, type: 3}
-  m_Color: {r: 0.79474264, g: 0.18396229, b: 1, a: 1}
+  m_Sprite: {fileID: 8647823593821616703, guid: 5bcb0dc57ba3bac4da7296ea446a6e84, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -557,7 +557,7 @@ Animator:
   m_GameObject: {fileID: 749621466693800095}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73f7f2923961c234185d253202c6cdf9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 76c1df669210f0943854f5d55b976445, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -673,7 +673,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.125, y: 2.125}
+  m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2122551814537069690, guid: 4472718595552c14cb5c9dc077dab324, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 510
+      value: 998
       objectReference: {fileID: 0}
     - target: {fileID: 5506989258476532690, guid: 4472718595552c14cb5c9dc077dab324, type: 3}
       propertyPath: target
