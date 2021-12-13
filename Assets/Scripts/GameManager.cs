@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
 
         if (IsGameCleared())
         {
-            string msg = "Player's Won!";
+            string msg = "YOU WIN!";
             //yield return StartCoroutine(GameOver(msg));
             yield return StartCoroutine(GameClear(msg));
 
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
         if (IsPlayerDefeated())
         {
-            string msg = "Player's Lost!";
+            string msg = "YOU DIE...";
             yield return StartCoroutine(GameOver(msg));
         }
 
