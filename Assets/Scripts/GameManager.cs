@@ -129,6 +129,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(currentStage);
+        }
+
         if (!gameOver)
         {
             if (playersTurn || playerMoving)
