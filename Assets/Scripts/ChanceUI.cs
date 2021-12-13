@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChanceUI : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI chanceText = null;
+    [SerializeField] Text chanceText = null;
     [SerializeField] Text chanceCountText = null;
     [SerializeField] ActionIcon[] actionIcons = null;
 
