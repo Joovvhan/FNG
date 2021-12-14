@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     //public static GameManager instance = null;
     private BoardManager boardScript;
     //private float turnDelay = 0.5f;
-    private float turnDelay = 1.0f;
+    //private float turnDelay = 1.0f;
+    private float turnDelay = 0.2f;
 
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public bool playerMoving = false;
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         player.SetOutline(false);
         yield return new WaitForSeconds(turnDelay);
 
@@ -88,18 +89,18 @@ public class GameManager : MonoBehaviour
             if (enemies[i].isActiveAndEnabled)
             {
                 enemies[i].SetOutline(true);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
                 yield return StartCoroutine(enemies[i].MoveEnemy());
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
                 enemies[i].SetOutline(false);
             }
         }
 
         for (int i = 0; i < traps.Count; i++)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             yield return StartCoroutine(traps[i].SetNeedle());
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         ClearDeadEnemies();
@@ -209,14 +210,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator Reload(string msg)
     {
         statusText.text = msg;
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene(currentStage);
     }
 
     private IEnumerator ReloadNext(string msg)
     {
         statusText.text = msg;
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene(currentStage + 1);
     }
 
